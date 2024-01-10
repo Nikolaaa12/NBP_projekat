@@ -8,6 +8,6 @@ public class TestController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        return Ok(new { message = "Helloo from .NET backend!" });
+        return Ok(new { message = "Hello from .NET backend!" });
     }
 }
