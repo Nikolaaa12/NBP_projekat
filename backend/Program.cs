@@ -1,3 +1,6 @@
+using Neo4jClient;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var client= new GraphClient(new Uri("http://localhost:7474"), "neo4j", "GraphDBMS");
+await client.ConnectAsync();
+builder.Services.AddSingleton<IGraphClient>(client);
 
 builder.Services.AddCors(options =>
     {
