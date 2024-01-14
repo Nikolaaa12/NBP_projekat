@@ -16,7 +16,7 @@ public class UserTypeController : ControllerBase
         }
 
     [HttpGet]
-    
+    [Route("Get")]
 
     public async Task<IActionResult> Get()
     {
@@ -26,17 +26,19 @@ public class UserTypeController : ControllerBase
         return Ok(UserTypes);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet]
+    [Route("GetById/{id?}")]
+   
     public async Task<IActionResult> GetById(int id)
     {
         var Type = await _graphClient.Cypher.Match("(n:UserType)")
-                                            .Where((UserType ut)=> ut.Id == id)
+                                            .Where((UserType n)=> n.Id == id)
                                             .Return(n=>n.As<UserType>()).ResultsAsync;
         return Ok(Type);
     }
 
     [HttpPost]
-
+    [Route("Create")]
     public async Task<IActionResult> Create([FromBody]UserType userType)
     {
 
@@ -47,7 +49,8 @@ public class UserTypeController : ControllerBase
         return Ok();
     }
 
-   [HttpPut("{id}")]
+   [HttpPut]
+   [Route("Edit/{id?}")]
 public async Task<IActionResult> Edit(int id, [FromBody]UserType userType)
 {
     await _graphClient.Cypher
@@ -61,7 +64,8 @@ public async Task<IActionResult> Edit(int id, [FromBody]UserType userType)
 }
 
 
-    [HttpDelete("{id}")]
+    [HttpDelete]
+    [Route("Delete/{id?}")]
     public async Task<IActionResult> Delete(int id)
         {
             await _graphClient.Cypher.Match("(n:UserType)")
