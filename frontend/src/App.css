@@ -45,3 +45,41 @@
     transform: rotate(360deg);
   }
 }
+
+.background-img{
+  width: 100vw;
+  height: 80vh;
+}
+
+.animation-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.background {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
+.animation-text h2{
+  color: #2B3035;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.profile-icon-image{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+
+
+
+
+
