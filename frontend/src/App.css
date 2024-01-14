@@ -1,6 +1,3 @@
-.App {
-
-}
 
 .App-logo {
   height: 40vmin;
@@ -23,16 +20,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.navbar {
-  background-color: aqua;
-  display: flex;
-  font-size: larger;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  justify-content:space-between;
-  flex-direction: row;
-  padding-left: 0.2in;
-  padding-right: 0.2in;
-}
+
 .App-link {
   color: #61dafb;
 }

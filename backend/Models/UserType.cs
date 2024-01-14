@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Controllers;
+namespace backend.Models;
 
 public class UserType
 {
