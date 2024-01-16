@@ -1,18 +1,19 @@
+using backend.Services;
 using Neo4jClient;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var client= new GraphClient(new Uri("http://localhost:7474"), "neo4j", "GraphDBMS");
+await client.ConnectAsync();
+builder.Services.AddSingleton<IGraphClient>(client);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var client= new GraphClient(new Uri("http://localhost:7474"), "neo4j", "GraphDBMS");
-await client.ConnectAsync();
-builder.Services.AddSingleton<IGraphClient>(client);
 
 builder.Services.AddCors(options =>
     {
@@ -25,6 +26,8 @@ builder.Services.AddCors(options =>
             });
     });
 
+builder.Services.AddScoped<UserTypeService>();
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("AllowReactApp");
+
 
 app.UseHttpsRedirection();
 

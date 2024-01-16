@@ -6,8 +6,8 @@ namespace backend.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        public readonly GraphClient _graphClient;
-        public Repository(GraphClient _graphClient)
+        public readonly IGraphClient _graphClient;
+        public Repository(IGraphClient _graphClient)
         {
             this._graphClient = _graphClient;
         }
@@ -50,16 +50,16 @@ namespace backend.Repository
                 throw;
             }
         }
-        public void Delete(T obj)
+        public void Delete(int? Id)
         {
             // Assuming there is an Id property in your T class
-            var idValue = GetNodeId(obj); // You need to implement this method
+            // You need to implement this method
 
-            if (idValue != null)
+            if (Id != null)
             {
                 _graphClient.Cypher
                     .Match("(d:" + typeof(T).Name + ")")
-                    .Where($"d.Id = {idValue}")
+                    .Where($"d.Id = {Id}")
                     .Delete("d")
                     .ExecuteWithoutResultsAsync();
             }
@@ -70,11 +70,11 @@ namespace backend.Repository
             }
         }
 
-        private int? GetNodeId(T obj)
+        /*private int? GetNodeId(T obj)
         {
             var propertyInfo = typeof(T).GetProperty("Id");
             return propertyInfo?.GetValue(obj) as int?;
-        }
+        }*/
 
         public void Update(T obj)
 

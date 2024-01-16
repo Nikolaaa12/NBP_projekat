@@ -10,7 +10,7 @@ namespace backend.Services
 
 
 
-        public UserTypeService(GraphClient graphClient)
+        public UserTypeService(IGraphClient graphClient)
         {
             this.userTypeRepository= new UserTypeRepository(graphClient);
         }

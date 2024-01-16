@@ -6,7 +6,7 @@ namespace backend.Repository.IRepository
         Task<T> GetOne(Expression<Func<T, bool>> predicate);
         Task<IQueryable<T>> GetAll();
         Task Add(T obj);
-        void Delete(T obj);
+        void Delete(int? Id);
         void Update(T obj);
     }
 }
