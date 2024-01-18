@@ -8,5 +8,6 @@ namespace backend.Repository.IRepository
         Task Add(T obj);
         void Delete(int? Id);
         void Update(T obj);
+        Task<IQueryable<T>> GetAllWhere(Expression<Func<T, bool>> predicate);
     }
 }

@@ -35,6 +35,22 @@ namespace backend.Repository
 
             return list.AsQueryable();
         }
+         public async Task<IQueryable<T>> GetAllWhere(Expression<Func<T, bool>> predicate)
+        {
+            var result = await _graphClient.Cypher
+                .Match("(n:" + typeof(T).Name + ")")
+                .Where(predicate)
+                .Return(n => n.As<T>())
+                .ResultsAsync;
+            if (result == null)
+            {
+                throw new Exception("Object with this ID dosent exists");
+            }
+            else
+            {
+                return result.AsQueryable();
+            }
+        }
 
         public async Task Add(T obj)
         {
