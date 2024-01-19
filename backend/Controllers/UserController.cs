@@ -45,7 +45,6 @@ namespace backend.Controllers
                 var result = await this._userService.Login(user.Email, user.Password);
 
                 Response.Cookies.Append("jwt", result, new CookieOptions { HttpOnly = true, Secure = true, SameSite = SameSiteMode.None });
-
                 return Ok(new { message = "success"});
             }
             catch (Exception e)
@@ -94,6 +93,23 @@ namespace backend.Controllers
             Response.Cookies.Delete("jwt", new CookieOptions { SameSite = SameSiteMode.None, Secure = true});
 
             return Ok(new {message = "success"});
+        }
+
+        [Route("GetUsersbyTypeId")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsersbyTypeId(int id)
+        {
+            var result = await this._userService.GetUsersbytypeId(id);
+
+             if (result.Any())
+        {
+            return Ok(result);
+        }
+        else
+        {
+            return NotFound("No users found");
+        }
+        
         }
 
     }

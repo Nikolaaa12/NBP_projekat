@@ -12,73 +12,60 @@ import {
   MDBTextArea,
   MDBFile
 }
-  from 'mdb-react-ui-kit';
+from 'mdb-react-ui-kit';
+import { useNavigate  } from 'react-router-dom'; 
+import Axios from 'axios'
 import { SyntheticEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { IonIcon } from '@ionic/react';
 import { logoFacebook, logoTwitter, mail } from 'ionicons/icons';
 import './Register.css';
 import { Button } from 'react-bootstrap';
 
-const Register = () => {
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatedPassword, setRepeatedPassword] = useState('');
-  const [city, setcity] = useState('');
-  const [profilePicture] = useState('');
-  const [userTypeId] = useState('1');
-  const [description, setdecription] = useState('');
-  const [pricePerHour, setpricePerHour] = useState('');
-  const [redirect, setRedirect] = useState(false);
+function Register (){
   const navigate = useNavigate();
-
-  const submit = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const response = await fetch('http://localhost:5105/api/User/Register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          Name: name,
-          LastName: lastName,
-          Username: username,
-          Email: email,
-          City: city,
-          PricePerHour: parseInt(pricePerHour, 10), // Assuming price is a string, convert it to an integer
-          Description: description,
-          Password: password,
-          RepeatedPassword: repeatedPassword,
-          ProfilePicture: profilePicture,
-          UserTypeId: 1, // Update with the appropriate UserTypeId
-        }),
-        credentials: 'include',
-        mode: 'cors',
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      setRedirect(true);
-    } catch (error) {
-      console.error('Error during registration:', error);
-      // Handle the error as needed, e.g., show an error message to the user
+  const url = "http://localhost:5105/api/User/Register"
+    const [data,Setdata]= useState({
+        name: "",
+        lastname:"",
+        username:"",
+        email: "",
+        city:"",
+        price:"",
+        description:"",
+        password: "",
+        repeatedPassword:"",
+        picture:"",
+        userTypeId:"1"
+    })
+    function submit(e){
+        e.preventDefault();
+        Axios.post(url,{
+            name:data.name,
+            lastname:data.lastname,
+            username:data.username,
+            email:data.email,
+            city:data.city,
+            price:parseInt(data.price),
+            description:data.description,
+            password:data.password,
+            repeatedPassword:data.repeatedPassword,
+            picture:data.picture,
+            userTypeId:parseInt(data.userTypeId)
+        })
+        .then(res=>{
+            console.log(res.data);
+            navigate('/login');
+            
+        })
     }
-  };
-  
-  if (redirect) {
-    navigate('/LogIn');
-  };
-
-
+    function handle(e){
+        const newdata={...data}
+        newdata[e.target.id]=e.target.value
+        Setdata(newdata)
+        console.log(newdata)
+    }
   return (
-    <form onSubmit={submit} className="form-signin">
+    <form onSubmit={(e)=>submit(e)} className="form-signin">
     <MDBContainer fluid className='p-4 background-radial-gradient overflow-hidden'>
 
       <MDBRow>
@@ -109,31 +96,31 @@ const Register = () => {
 
               <MDBRow>
                 <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text' required onChange={e => setName(e.target.value)} />
+                  <MDBInput onChange={(e)=>handle(e)} id = "name" value = {data.name} wrapperClass='mb-4' label='First name' type='text' required />
                 </MDBCol>
 
                 <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text' required onChange={e => setLastName(e.target.value)} />
+                  <MDBInput onChange={(e)=>handle(e)} id = "lastname" value = {data.lastname} wrapperClass='mb-4' label='Last name' type='text' required />
                 </MDBCol>
               </MDBRow>
               <MDBRow>
                 <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' label='Location' id='form3' type='text' required onChange={e => setcity(e.target.value)} />
+                  <MDBInput onChange={(e)=>handle(e)} id = "city" value = {data.city} wrapperClass='mb-4' label='Location'  type='text' required  />
                 </MDBCol>
                 <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' label='Price' id='form4' type='number' required onChange={e => setpricePerHour(e.target.value)} />
+                  <MDBInput onChange={(e)=>handle(e)} id = "price" value = {data.price} wrapperClass='mb-4' label='Price'  type='number' required />
                 </MDBCol>
               </MDBRow>
               <div className='kont'>
-              <MDBInput wrapperClass='mb-4' label='User name' id='form5' type='text' required onChange={e => setUserName(e.target.value)} />
-                <MDBInput wrapperClass='mb-4' label='Email' id='form5' type='email' required onChange={e => setEmail(e.target.value)} />
-                <MDBInput wrapperClass='mb-4' label='Password' id='form6' type='password' required onChange={e => setPassword(e.target.value)} />
-                <MDBInput wrapperClass='mb-4' label='Repeat Password' id='form7' type='password' required onChange={e => setRepeatedPassword(e.target.value)} />
-                <MDBTextArea wrapperClass='mb-4' label='Description' id='form8' type='text' required onChange={e => setdecription(e.target.value)} />
-                <MDBFile wrapperClass='mb-4' label='Choose Image' id='form8' type='file'></MDBFile>
+              <MDBInput onChange={(e)=>handle(e)} id = "username" value = {data.username} wrapperClass='mb-4' label='User name'  type='text' required  />
+                <MDBInput onChange={(e)=>handle(e)} id = "email" value = {data.email} wrapperClass='mb-4' label='Email'  type='email' required  />
+                <MDBInput onChange={(e)=>handle(e)} id = "password" value = {data.password} wrapperClass='mb-4' label='Password'  type='password' required  />
+                <MDBInput onChange={(e)=>handle(e)} id = "repeatedPassword" value = {data.repeatedPassword} wrapperClass='mb-4' label='Repeat Password'  type='password' required />
+                <MDBTextArea onChange={(e)=>handle(e)} id = "description" value = {data.description} wrapperClass='mb-4' label='Description'  type='text' required  />
+               
 
 
-                <Button style={{ backgroundColor: '#2B3035', border: 'none' }} type = 'submit' className='w-100 mb-4' size='md'>Sign up</Button>
+                <Button submit="true" style={{ backgroundColor: '#2B3035', border: 'none' }} type = 'submit' className='w-100 mb-4' size='md'>Sign up</Button>
               </div>
               <div className="text-center">
 

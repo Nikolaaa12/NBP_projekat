@@ -9,5 +9,6 @@ namespace backend.Services.IServices
         Task<string> Login(string email, string password);
         Task UpdateProfile(UserUpdateDTO user);
         Task<User> GetUser(string jwt);
+        Task<IQueryable<User>> GetUsersbytypeId(int Id);
     }
 }

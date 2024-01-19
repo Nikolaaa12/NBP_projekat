@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Route } from 'react-router-dom';
 import './App.css';
 import { IonIcon, IonSelect, IonLabel, IonSelectOption } from '@ionic/react'; // Import IonIcon from the '@ionic/react' package
 import { infinite, person } from 'ionicons/icons';
@@ -9,19 +10,42 @@ import background from './background.jpg';
 import {Typewriter, Cursor} from 'react-simple-typewriter'
 
 function Home() {
-
-
-
-  useEffect(() => {
-      // Definišite URL ka .NET backend-u
-      const apiUrl = 'http://localhost:5105/api/test';
-      WebFont.load({
-        google: {
-          families: ['Droid Sans', 'Chilanka', 'Lemon']
+  const navigate = useNavigate();
+    const [userTypes, setUserTypes] = useState([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('http://localhost:5105/api/UserType/Get', {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              // Include any additional headers if needed
+            },
+            credentials: 'include',
+            mode: 'cors',
+          });
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          setUserTypes(data);
+        } catch (error) {
+          console.error('Error fetching user types:', error);
         }
-      });
-  }, []); // Prazan niz znači da će se useEffect izvršiti samo jednom nakon prvog renderovanja komponente
- 
+      };
+  
+      fetchData();
+    }, []);
+
+    const handleTypeClick = (typeId) => {
+      // Redirect to the corresponding type page
+      // Implement your navigation logic here
+      console.log(`Redirect to type with ID: ${typeId}`);
+      navigate(`/fixers/${typeId}`);
+    };
 
   return (
     <>
@@ -30,15 +54,15 @@ function Home() {
         <Navbar.Brand href="/">FixHub</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <NavDropdown title="Handyman" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Plumber</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Carpenter
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Electrician</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+        <Nav className="me-auto">
+              <NavDropdown title="Handyman" id="collapsible-nav-dropdown">
+                {userTypes.map((type) => (
+                  <NavDropdown.Item key={type.id} onClick={() => handleTypeClick(type.id)}>
+                    {type.name}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+            </Nav>
           <Nav>
             <Nav.Link href='/login'>Log-In</Nav.Link>
             <Nav.Link eventKey={2} href="/register">
@@ -63,6 +87,7 @@ function Home() {
         <img className='background-img' src={background} alt="Description of the image" />
         <div className='animation-text'><h2><Typewriter words={['Book trusted help for home tasks.', 'Get help Today.']} loop={infinite} typeSpeed={50} deleteSpeed={50}></Typewriter><Cursor/></h2></div>
     </div>
+    
     </>
   );
 }

@@ -25,13 +25,13 @@ namespace backend.Services
         {
             if (user != null)
             {
-               // var userFound = await this.userRepository.GetUserByEmail(user.Email);
-              //  if (userFound != null)
-               // {
-              //      throw new Exception("User with this email already exists.");
-               // }
+               /* var userFound = await this.userRepository.GetUserByEmail(user.Email);
+                if (userFound != null)
+                {
+                    throw new Exception("User with this email already exists.");
+                }
 
-               /*var userFound = await this.userRepository.GetUserByUsername(user.Username);
+                userFound = await this.userRepository.GetUserByUsername(user.Username);
                 if (userFound != null)
                 {
                     throw new Exception("User with this username already exists.");
@@ -40,8 +40,7 @@ namespace backend.Services
                 if (user.Password != user.RepeatedPassword)
                 {
                     throw new Exception("Password missmatch");
-                }*/
-
+                } */
                 var userCreated = new User
                 (
                     user.Name,
@@ -104,6 +103,13 @@ namespace backend.Services
             var user = await this.userRepository.GetUserById(userId);
 
             return user;
+        }
+        public async Task<IQueryable<User>> GetUsersbytypeId(int Id)
+        {
+
+            var users = await this.userRepository.GetUsersByType(Id);
+
+            return users;
         }
 
        /* public async Task<IQueryable<User>> Search(string username, string ownerUsername)
