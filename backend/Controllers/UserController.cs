@@ -111,6 +111,22 @@ namespace backend.Controllers
         }
         
         }
+        [Route("GetUserbyId")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserbyId(int id)
+        {
+            var result = await this._userService.userRepository.GetUserById(id);
+
+             if (result!=null)
+        {
+            return Ok(result);
+        }
+        else
+        {
+            return NotFound("No users found");
+        }
+        
+        }
 
     }
 

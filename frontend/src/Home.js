@@ -62,7 +62,15 @@ function Home() {
                   </NavDropdown.Item>
                 ))}
               </NavDropdown>
-            </Nav>
+              
+      
+            <NavDropdown title="User Types" id="collapsible-nav-dropdown">
+              <NavDropdown.Item href="#action/3.4">Add User Type</NavDropdown.Item>
+              <NavDropdown.Item href="/DeleteUT">
+                Delete User Type
+              </NavDropdown.Item>  
+            </NavDropdown>
+          </Nav>
           <Nav>
             <Nav.Link href='/login'>Log-In</Nav.Link>
             <Nav.Link eventKey={2} href="/register">

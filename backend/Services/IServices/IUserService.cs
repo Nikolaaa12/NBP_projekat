@@ -1,10 +1,12 @@
 using backend.Models;
 using backend.DTOs;
+using backend.Repository;
 
 namespace backend.Services.IServices
 {
     public interface IUserService
     {
+        public UserRepository userRepository { get; set; }
         Task<User> Register(UserRegisterDTO user);
         Task<string> Login(string email, string password);
         Task UpdateProfile(UserUpdateDTO user);

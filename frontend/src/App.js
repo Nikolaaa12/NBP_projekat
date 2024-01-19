@@ -6,6 +6,9 @@ import Home from './Home';
 import LogIn from './LogIn';
 import Register from './Register';
 import Fixers from './Fixers';
+import Profile from './Profile';
+import DeleteUT from './DeleteUserType';
+import DeleteUserType from './DeleteUserType';
 
 function App() {
 
@@ -26,6 +29,8 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/fixers/:userTypeId" element={<Fixers />} />
+          <Route path="/deleteUT" element={<DeleteUserType />} />
+          <Route path="/profile/:userId" element={<Profile />} />
         </Routes>
        </BrowserRouter>
        <h1>{userId}</h1>
