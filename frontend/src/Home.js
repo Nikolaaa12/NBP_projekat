@@ -40,11 +40,11 @@ function Home() {
       fetchData();
     }, []);
 
-    const handleTypeClick = (typeId) => {
+    const handleTypeClick = (typeId, typeName) => {
       // Redirect to the corresponding type page
       // Implement your navigation logic here
       console.log(`Redirect to type with ID: ${typeId}`);
-      navigate(`/fixers/${typeId}`);
+      navigate(`/fixers/${typeId}/${typeName}`);
     };
 
   return (
@@ -57,7 +57,7 @@ function Home() {
         <Nav className="me-auto">
               <NavDropdown title="Handyman" id="collapsible-nav-dropdown">
                 {userTypes.map((type) => (
-                  <NavDropdown.Item key={type.id} onClick={() => handleTypeClick(type.id)}>
+                  <NavDropdown.Item key={type.id} onClick={() => handleTypeClick(type.id, type.name)}>
                     {type.name}
                   </NavDropdown.Item>
                 ))}

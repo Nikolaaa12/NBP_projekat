@@ -28,7 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/fixers/:userTypeId" element={<Fixers />} />
+          <Route path="/fixers/:userTypeId/:userTypeName" element={<Fixers />} />
           <Route path="/deleteUT" element={<DeleteUserType />} />
           <Route path="/profile/:userId" element={<Profile />} />
         </Routes>
