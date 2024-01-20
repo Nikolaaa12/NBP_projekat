@@ -41,7 +41,7 @@ public class UserTypeController : ControllerBase
     }
 }
     [HttpGet]
-    [Route("Get/{id}")]
+    [Route("GetOne")]
     public async Task<IActionResult> Get(int id)
     {
         try

@@ -78,7 +78,7 @@ function Home() {
             </Nav.Link>
             <div className='profile-icon-image'>
             <NavDropdown title="Profile" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.4">My profile</NavDropdown.Item>
+              <NavDropdown.Item href='/profile'>My profile</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.5">
                 Settings
               </NavDropdown.Item>
