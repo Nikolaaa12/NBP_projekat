@@ -30,7 +30,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/fixers/:userTypeId/:userTypeName" element={<Fixers />} />
           <Route path="/deleteUT" element={<DeleteUserType />} />
-          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
        </BrowserRouter>
        <h1>{userId}</h1>
