@@ -78,7 +78,7 @@ function OurNavbar(){
             </Nav.Link>
             <div className='profile-icon-image'>
             <NavDropdown title="Profile" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href='/profile'>My profile</NavDropdown.Item>
+              <NavDropdown.Item href='/profile/1'>My profile</NavDropdown.Item>
               <NavDropdown.Item href="/editprofile">Edit profile</NavDropdown.Item>
               <hr/>
               <NavDropdown.Item href="/myreservations">My reservations</NavDropdown.Item>

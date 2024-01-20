@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import OurNavbar from './Navbar';
 
 function Profile() {
+  const { userId } = useParams();
   const [user, setUser] = useState({
     email: '',
     username: '',
@@ -18,13 +19,13 @@ function Profile() {
   const [userType, setUserType] = useState({
     name: '',
   });
-  const { userId } = useParams();
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch user details
-        const userResponse = await fetch(`http://localhost:5105/api/User/GetUserbyId?id=${1}`, {
+        const userResponse = await fetch(`http://localhost:5105/api/User/GetUserbyId?id=${userId}`, {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -36,7 +37,7 @@ function Profile() {
         if (!userResponse.ok) {
           throw new Error(`HTTP error! Status: ${userResponse.status}`);
         }
-
+        console.log(userId);
         const userData = await userResponse.json();
         setUser(userData);
 

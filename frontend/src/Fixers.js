@@ -11,9 +11,15 @@ import OurNavbar from './Navbar';
 
 
     function Fixers(){ 
+      const navigate = useNavigate();
         const { userTypeId, userTypeName } = useParams();
         const [users, setUsers] = useState([]);
     const typeId = userTypeId; // Replace with the actual type ID you want to fetch
+    const handleWrapperClick = (userId) => {
+      // Handle the click event, e.g., navigate to the profile page
+      // You can use the useHistory hook or any navigation method you prefer
+      console.log(`Clicked on user with ID: ${userId}`);
+      navigate(`/profile/${userId}`);}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +54,7 @@ import OurNavbar from './Navbar';
         {users.map((user) => (
           <div key={user.id} className='fixers-wrapper'>
             <div className='item-wrapper'>
-              <div className='slika-podaci'>
+              <div className='slika-podaci' onClick={() => handleWrapperClick(user.id)}>
               <img src={plumbing}></img>
               <div className='personal-info'>
                 <p>Username: {user.username}</p>
