@@ -65,7 +65,7 @@ public class UserTypeController : ControllerBase
     }
 
     [HttpPost]
-    [Route("Add")]
+    [Route("AddUserType")]
     public async Task<IActionResult> AddUserType([FromBody] string name)
     {
         try
