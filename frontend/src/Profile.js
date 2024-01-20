@@ -4,64 +4,66 @@ import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
 function Profile() {
+  const [user, setUser] = useState({
+    email: '',
+    username: '',
+    name: '',
+    lastName: '',
+    city: '',
+    description: '',
+    pricePerHour: 0,
+    // ... other properties
+  });
+  const [userType, setUserType] = useState({
+    name: '',
+  });
+  const { userId } = useParams();
 
-    const [users, setUser] = useState([]);
-    const typeId = 2; // Replace with the actual type ID you want to fetch
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch user details
+        const userResponse = await fetch(`http://localhost:5105/api/User/GetUserbyId?id=${1}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          credentials: 'include',
+          mode: 'cors',
+        });
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`http://localhost:5105/api/User/GetUserbyId?id=${typeId}`, {
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                // Include any additional headers if needed
-              },
-              credentials: 'include',
-              mode: 'cors',
-            });
-    
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-    
-            const data = await response.json();
-            setUser(data);
-          } catch (error) {
-            console.error('Error fetching user data:', error);
-          }
-        };
-    
-        fetchData();
-      }, [typeId]);
-  
-      const [userType, setUserType] = useState(null);
+        if (!userResponse.ok) {
+          throw new Error(`HTTP error! Status: ${userResponse.status}`);
+        }
 
-     useEffect(() => {
-            const fetchData = async () => {
-              try {
-                const response = await fetch('http://localhost:5105/api/UserType/GetOne?id=1', {
-                  method: 'GET',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    // Add any additional headers if needed
-                  },
-                });
-        
-                if (!response.ok) {
-                  throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-        
-                const data = await response.json();
-                setUserType(data);
-              } catch (error) {
-                console.error('Error fetching user type:', error);
-              }
-            };
-        
-            fetchData();
-          }, []);
-          
+        const userData = await userResponse.json();
+        setUser(userData);
+
+        // Fetch user type details based on typeId
+        const userTypeResponse = await fetch(`http://localhost:5105/api/UserType/GetOne?id=${userData.typeOfUser}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          credentials: 'include',
+          mode: 'cors',
+        });
+
+        if (!userTypeResponse.ok) {
+          throw new Error(`HTTP error! Status: ${userTypeResponse.status}`);
+        }
+
+        const userTypeData = await userTypeResponse.json();
+        setUserType(userTypeData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+
+    
     return (
         <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
           <MDBContainer className="py-5 h-100">
@@ -83,27 +85,27 @@ function Profile() {
                         <MDBRow className="pt-1">
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">Email</MDBTypography>
-                            <MDBCardText className="text-muted">{userType.name}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.email}</MDBCardText>
                           </MDBCol>
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">Username</MDBTypography>
-                            <MDBCardText className="text-muted">{users.username}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.username}</MDBCardText>
                           </MDBCol>
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">First name</MDBTypography>
-                            <MDBCardText className="text-muted">{users.name}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.name}</MDBCardText>
                           </MDBCol>
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">Last name</MDBTypography>
-                            <MDBCardText className="text-muted">{users.lastName}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.lastName}</MDBCardText>
                           </MDBCol>
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">City</MDBTypography>
-                            <MDBCardText className="text-muted">{users.city}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.city}</MDBCardText>
                           </MDBCol>
                           <MDBCol size="10" className="mb-3">
                             <MDBTypography tag="h6">Description</MDBTypography>
-                            <MDBCardText className="text-muted">{users.description}</MDBCardText>
+                            <MDBCardText className="text-muted">{userType.name}</MDBCardText>
                           </MDBCol>
                         </MDBRow>
     
@@ -112,7 +114,7 @@ function Profile() {
                         <MDBRow className="pt-1">
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">Price</MDBTypography>
-                            <MDBCardText className="text-muted">{users.pricePerHour} $</MDBCardText>
+                            <MDBCardText className="text-muted">{user.pricePerHour} $</MDBCardText>
                           </MDBCol>
                         </MDBRow>
     
