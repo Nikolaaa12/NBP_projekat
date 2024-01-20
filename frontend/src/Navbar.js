@@ -63,11 +63,12 @@ function OurNavbar(){
               </NavDropdown>
               
       
-            <NavDropdown title="User Types" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="/addusertype">Add User Type</NavDropdown.Item>
-              <NavDropdown.Item href="/DeleteUT">
-                Delete User Type
-              </NavDropdown.Item>  
+            <NavDropdown title="Add" id="collapsible-nav-dropdown">
+              <NavDropdown.Item href="/addusertype">Add User Type</NavDropdown.Item> 
+            </NavDropdown>
+            <NavDropdown title="Delete" id="collapsible-nav-dropdown">
+              <NavDropdown.Item href="/deleteUser">Delete User</NavDropdown.Item> 
+              <NavDropdown.Item href="/deleteUT">Delete User Type</NavDropdown.Item> 
             </NavDropdown>
           </Nav>
           <Nav>

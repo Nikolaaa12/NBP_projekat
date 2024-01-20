@@ -15,7 +15,7 @@ import {
 from 'mdb-react-ui-kit';
 import { useNavigate  } from 'react-router-dom'; 
 import Axios from 'axios'
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, useEffect } from "react";
 import { IonIcon } from '@ionic/react';
 import { logoFacebook, logoTwitter, mail } from 'ionicons/icons';
 import './Register.css';
@@ -23,6 +23,36 @@ import { Button } from 'react-bootstrap';
 import OurNavbar from './Navbar';
 
 function Register (){
+
+  const [userTypes, setUserTypes] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5105/api/UserType/Get', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            // Include any additional headers if needed
+          },
+          credentials: 'include',
+          mode: 'cors',
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUserTypes(data);
+      } catch (error) {
+        console.error('Error fetching user types:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const navigate = useNavigate();
   const url = "http://localhost:5105/api/User/Register"
     const [data,Setdata]= useState({
@@ -36,7 +66,7 @@ function Register (){
         password: "",
         repeatedPassword:"",
         picture:"",
-        userTypeId:"1"
+        userTypeId:""
     })
     function submit(e){
         e.preventDefault();
@@ -51,7 +81,7 @@ function Register (){
             password:data.password,
             repeatedPassword:data.repeatedPassword,
             picture:data.picture,
-            userTypeId:parseInt(data.userTypeId)
+            userTypeId:parseInt(value)
         })
         .then(res=>{
             console.log(res.data);
@@ -65,6 +95,15 @@ function Register (){
         Setdata(newdata)
         console.log(newdata)
     }
+
+    const [value, setValue]=useState('');
+    function handleSelect(event){
+      const selectedValue = event.target.value;
+      console.log('Selected Value:', value);
+      setValue(selectedValue);
+      };
+
+
   return (
     <>
     <form onSubmit={(e)=>submit(e)} className="form-signin">
@@ -112,9 +151,14 @@ function Register (){
                 <MDBInput onChange={(e)=>handle(e)} id = "password" value = {data.password} wrapperClass='mb-4' label='Password'  type='password' required  />
                 <MDBInput onChange={(e)=>handle(e)} id = "repeatedPassword" value = {data.repeatedPassword} wrapperClass='mb-4' label='Repeat Password'  type='password' required />
                 <MDBTextArea onChange={(e)=>handle(e)} id = "description" value = {data.description} wrapperClass='mb-4' label='Description'  type='text' required  />
-               
-
-
+                <div className='selector'>
+                  <h4>Choose User Type</h4>
+                  <select style={{width: '35%'}} onChange={handleSelect}>
+                    {userTypes.map(user=>(
+                      <option value={user.id}>{user.name}</option>
+                    ))}
+                  </select>
+                </div>
                 <Button submit="true" style={{ backgroundColor: '#2B3035', border: 'none' }} type = 'submit' className='w-100 mb-4' size='md'>Sign up</Button>
               </div>
             </MDBCardBody>

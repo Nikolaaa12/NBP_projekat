@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useNavigate  } from 'react-router-dom'; 
 import { useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {NavDropdown} from 'react-bootstrap';
+import {Dropdown, DropdownToggle, DropdownButton, DropdownItem, DropdownMenu, NavDropdown} from 'react-bootstrap';
+import './DeleteUserType.css';
 
 
     function DeleteUserType(){ 
@@ -45,14 +46,28 @@ import {NavDropdown} from 'react-bootstrap';
       fetchData();
     }, []);
 
+    const [value, setValue]=useState('');
+    function handleSelect(event){
+        setValue(event.target.value);
+    }
+
   return(<>
-    <NavDropdown title="Handyman" id="collapsible-nav-dropdown">
-                {userTypes.map((type) => (
-                  <NavDropdown.Item key={type.id} onClick={() => handleTypeClick(type.id)}>
-                    {type.name}
-                  </NavDropdown.Item>
-                ))}
-              </NavDropdown>
+      <form className='container1'>
+                <div className='header'>
+                    <div className='text'>
+                      Delete UserType
+                    </div>
+                    <div className='underline'></div>
+                </div>
+                <div className='selector'>
+                  <h4>Choose user type to delete</h4>
+                  <select onChange={handleSelect}>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
+                <button submit="true" className='sign-in'>Delete</button>
+                </form>
     </>
   )
 }

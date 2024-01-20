@@ -13,6 +13,7 @@ import DeleteUT from './DeleteUserType';
 import DeleteUserType from './DeleteUserType';
 import OurNavbar from './Navbar';
 import AddUserType from './AddUserType';
+import DeleteUser from './DeleteUser';
 
 function App() {
 
@@ -34,8 +35,9 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/fixers/:userTypeId/:userTypeName" element={<Fixers />} />
-          <Route path="/addusertype" element={<AddUserType/>}></Route>
+          <Route path="/addusertype" element={<AddUserType/>} />
           <Route path="/deleteUT" element={<DeleteUserType />} />
+          <Route path="/deleteUser" element={<DeleteUser />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<Edit />} />
           <Route path="/myreservations" element={<MyReservations />} />
