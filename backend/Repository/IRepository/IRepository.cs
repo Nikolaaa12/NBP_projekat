@@ -9,5 +9,8 @@ namespace backend.Repository.IRepository
         void Delete(int? Id);
         void Update(T obj);
         Task<IQueryable<T>> GetAllWhere(Expression<Func<T, bool>> predicate);
+        Task<bool> CheckIfNodeHasRelationships(int? Id);
+        void DeleteWithoutRelationships(int? Id);
+        void DetachDeleteNodeAndRelationships(int? Id);
     }
 }

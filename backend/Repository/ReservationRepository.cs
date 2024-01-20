@@ -43,6 +43,20 @@ namespace backend.Repository
         {
             return  this.GetAllWhere(n => n.IdHandyMan == id);
         }
+         public async void AssignCustomer(int ResId,int CustomerId)
+        {
+            await _graphClient.Cypher.Match("(c:User),(v:Reservation)")
+            .Where((User c,Reservation v)=>c.Id==CustomerId && v.Id==ResId)
+            .Create("(v)-[r:Customer]->(c)")
+            .ExecuteWithoutResultsAsync();
+        }
+         public async void AssignHandyman(int ResId,int handymanId)
+        {
+            await _graphClient.Cypher.Match("(h:User),(v:Reservation)")
+            .Where((User h,Reservation v)=>h.Id==handymanId && v.Id==ResId)
+            .Create("(v)-[r:Handyman]->(h)")
+            .ExecuteWithoutResultsAsync();
+        }
 
         public async Task<Reservation> Create(int IdCustomer,int idhandyman,DateOnly date )
         {

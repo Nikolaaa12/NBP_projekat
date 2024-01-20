@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using backend.Repository.IRepository;
 using Neo4jClient;
+using Neo4jClient.Cypher;
 
 namespace backend.Repository
 {
@@ -35,7 +36,7 @@ namespace backend.Repository
 
             return list.AsQueryable();
         }
-         public async Task<IQueryable<T>> GetAllWhere(Expression<Func<T, bool>> predicate)
+        public async Task<IQueryable<T>> GetAllWhere(Expression<Func<T, bool>> predicate)
         {
             var result = await _graphClient.Cypher
                 .Match("(n:" + typeof(T).Name + ")")
@@ -70,7 +71,24 @@ namespace backend.Repository
         {
             // Assuming there is an Id property in your T class
             // You need to implement this method
+            {
+                if (Id != null)
+                {
+                    _graphClient.Cypher
+                        .OptionalMatch("(d:" + typeof(T).Name + ")-[r]-()")
+                        .Where($"d.Id = {Id}")
+                        .Delete("r, d")
+                        .ExecuteWithoutResultsAsync();
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unable to determine the ID for deletion.");
+                }
+            }
 
+        }
+        public void DeleteWithoutRelationships(int? Id)
+        {
             if (Id != null)
             {
                 _graphClient.Cypher
@@ -81,7 +99,38 @@ namespace backend.Repository
             }
             else
             {
-                // Handle the case where the ID is not available or not valid
+                throw new InvalidOperationException("Unable to determine the ID for deletion.");
+            }
+        }
+        public async Task<bool> CheckIfNodeHasRelationships(int? Id)
+        {
+            if (Id != null)
+            {
+                var result = await _graphClient.Cypher
+                    .Match("(d:" + typeof(T).Name + ")-[r]-()")
+                    .Where($"d.Id = {Id}")
+                    .ReturnDistinct(r => Return.As<int>("count(r)"))
+                    .ResultsAsync;
+
+                return result.Single() > 0;
+            }
+            else
+            {
+                throw new InvalidOperationException("Unable to determine the ID for checking relationships.");
+            }
+        }
+        public void DetachDeleteNodeAndRelationships(int? Id)
+        {
+            if (Id != null)
+            {
+                _graphClient.Cypher
+                    .Match($"(d:{typeof(T).Name})-[r]-(related)")
+                    .Where($"d.Id = {Id}")
+                    .DetachDelete("d, r, related")
+                    .ExecuteWithoutResultsAsync();
+            }
+            else
+            {
                 throw new InvalidOperationException("Unable to determine the ID for deletion.");
             }
         }
@@ -122,6 +171,7 @@ namespace backend.Repository
                 throw new InvalidOperationException("The 'Id' property does not exist on type T.");
             }
         }
+
 
     }
 }

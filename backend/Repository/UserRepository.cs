@@ -1,6 +1,8 @@
 
 using backend.Models;
 using backend.Repository.IRepository;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Neo4jClient;
 using Neo4jClient.Cypher;
 using System;
@@ -76,8 +78,8 @@ namespace backend.Repository
                     user.Id = 1;
                 else
                     user.Id = maxId.Value + 1;
-                user.UpVotes=0;
-                user.DownVotes=0;
+                user.UpVotes = 0;
+                user.DownVotes = 0;
                 await this.Add(user);
 
                 return user;
@@ -98,5 +100,49 @@ namespace backend.Repository
 
             return result.SingleOrDefault();
         }
+        public async void Assign(int Userid, int UserTypeid)
+        {
+            await _graphClient.Cypher.Match("(u:User),(t:UserType)")
+            .Where((User u, UserType t) => u.Id == Userid && t.Id == UserTypeid)
+            .Create("(u)-[r:ofType]->(t)")
+            .ExecuteWithoutResultsAsync();
+        }
+        public void DeleteUserAndReservations(int? userId)
+        {
+            if (userId != null)
+            {
+                var query = _graphClient.Cypher
+                    .Match("(user:User)<-[r:Handyman]-(reservation:Reservation)")
+                    .Where($"user.Id = {userId}")
+                    .DetachDelete("user, r, reservation")
+                    .ExecuteWithoutResultsAsync();
+
+                query.ContinueWith(t =>
+                {
+                    if (t.IsFaulted)
+                    {
+                        Console.WriteLine($"Error: {t.Exception?.InnerException?.Message}");
+                    }
+                }).Wait();
+            }
+            else
+            {
+                throw new InvalidOperationException("Unable to determine the ID for deletion.");
+            }
+        }
+        public async Task<long> UserHasReservations(int userId)
+        {
+            var result = await _graphClient.Cypher
+                .Match("(user:User)<-[:Handyman]-(reservation:Reservation)")
+                .Where((User user) => user.Id == userId)
+                .Return(reservation => reservation.Count())
+                .ResultsAsync;
+
+            return result.FirstOrDefault();
+        }
+
+
+
+
     }
 }

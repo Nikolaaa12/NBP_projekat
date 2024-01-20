@@ -14,5 +14,8 @@ namespace backend.Repository.IRepository
         User UpdateUser(User user);
         Task<User> Create(User user);
         Task<int?> GetMaxId();
+        void Assign(int Userid,int UserTypeid);
+        void DeleteUserAndReservations(int? userId);
+        Task<long> UserHasReservations(int userId);
     }
 }

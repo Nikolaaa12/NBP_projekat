@@ -89,13 +89,15 @@ public class ReservationController : ControllerBase
     }
     [HttpPost]
     [Route("Add")]
-    public async Task<IActionResult> AddUserType(int idhandyman,int idcustomer,DateOnly date)
+    public async Task<IActionResult> AddReservation(int idhandyman,int idcustomer,DateOnly date)
     {
         try
         {
-            var newUserType = await service.reservationRepository.Create(idcustomer,idhandyman,date);
+            var reservation = await service.reservationRepository.Create(idcustomer,idhandyman,date);
+            service.reservationRepository.AssignCustomer(reservation.Id,idcustomer);
+            service.reservationRepository.AssignHandyman(reservation.Id,idhandyman);
 
-            return Ok(newUserType);
+            return Ok(reservation);
         }
         catch (Exception ex)
         {
@@ -106,8 +108,8 @@ public class ReservationController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("Delete/{id}")]
-    public IActionResult DeleteUserType(int id)
+    [Route("Delete")]
+    public IActionResult DeleteReservation(int id)
     {
         try
         {

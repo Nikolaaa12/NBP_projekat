@@ -83,12 +83,16 @@ public class UserTypeController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("Delete/{id}")]
-    public IActionResult DeleteUserType(int id)
+    [Route("Delete")]
+    public async Task<IActionResult> DeleteUserType(int id)
     {
         try
         {
-            service.userTypeRepository.Delete(id);
+            var a = await service.userTypeRepository.CheckIfNodeHasRelationships(id);
+            if( a==true)
+            service.userTypeRepository.DetachDeleteNodeAndRelationships(id);
+            else
+            service.userTypeRepository.DeleteWithoutRelationships(id);
             return Ok($"UserType with ID {id} deleted successfully");
         }
         catch (Exception ex)
