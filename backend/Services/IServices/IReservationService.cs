@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace backend.Services.IServices
 {
-    public interface IUserTypeService
+    public interface IReservationService
     {
         
     }
