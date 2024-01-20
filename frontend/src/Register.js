@@ -20,6 +20,7 @@ import { IonIcon } from '@ionic/react';
 import { logoFacebook, logoTwitter, mail } from 'ionicons/icons';
 import './Register.css';
 import { Button } from 'react-bootstrap';
+import OurNavbar from './Navbar';
 
 function Register (){
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ function Register (){
         console.log(newdata)
     }
   return (
+    <>
     <form onSubmit={(e)=>submit(e)} className="form-signin">
     <MDBContainer fluid className='p-4 background-radial-gradient overflow-hidden'>
 
@@ -73,16 +75,9 @@ function Register (){
         <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
 
           <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{ color: '#555' }}>
-            The best offer <br />
-            <span style={{ color: '#2B3035' }}>for your business</span>
+            Sign up <br />
+            <span style={{ color: '#2B3035' }}>To get best offers for scheduling handymen</span>
           </h1>
-
-          <p className='px-3' style={{ color: '#555' }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-            quibusdam tempora at cupiditate quis eum maiores libero
-            veritatis? Dicta facilis sint aliquid ipsum atque?
-          </p>
 
         </MDBCol>
 
@@ -122,22 +117,6 @@ function Register (){
 
                 <Button submit="true" style={{ backgroundColor: '#2B3035', border: 'none' }} type = 'submit' className='w-100 mb-4' size='md'>Sign up</Button>
               </div>
-              <div className="text-center">
-
-                <p>or sign up with:</p>
-                <div className='icon-wrapper' style={{ display: 'flex', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
-                  <div className='icon-div'>
-                    <IonIcon color='red' className='icon' style={{ cursor: 'pointer' }} icon={logoFacebook}></IonIcon>
-                  </div>
-                  <div className='icon-div'>
-                    <IonIcon color='white' className='icon' style={{ cursor: 'pointer' }} icon={logoTwitter}></IonIcon>
-                  </div>
-                  <div className='icon-div'>
-                    <IonIcon color='white' className='icon' style={{ cursor: 'pointer' }} icon={mail}></IonIcon>
-                  </div>
-                </div>
-              </div>
-
             </MDBCardBody>
           </MDBCard>
 
@@ -147,6 +126,7 @@ function Register (){
 
     </MDBContainer>
     </form>
+    </>
   );
 };
 

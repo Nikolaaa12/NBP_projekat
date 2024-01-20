@@ -7,6 +7,7 @@ import { useState,useEffect } from 'react';
 import plumbing from '../src/plumbing-logos.jpg';
 import './Fixers.css';
 import {MDBInput} from 'mdb-react-ui-kit';
+import OurNavbar from './Navbar';
 
 
     function Fixers(){ 

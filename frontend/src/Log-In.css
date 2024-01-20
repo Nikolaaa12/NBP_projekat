@@ -4,13 +4,14 @@ body{
 
 .container1{
     max-width: 1200px;
+    min-width: 320px;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
     height: 88vh;
     background-color: #fff;
-    margin-top: 3%;
+    margin-top: 5%;
     margin-bottom: 3%;
     margin-left: auto; /* Center the container horizontally */
     margin-right: auto;

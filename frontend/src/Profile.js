@@ -2,6 +2,7 @@ import { MDBCol, MDBBtn, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody
 import './Profile.css';
 import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
+import OurNavbar from './Navbar';
 
 function Profile() {
   const [user, setUser] = useState({
@@ -61,10 +62,12 @@ function Profile() {
     };
 
     fetchData();
+
   }, [userId]);
 
     
     return (
+      <>
         <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
           <MDBContainer className="py-5 h-100">
             <MDBRow className="justify-content-center align-items-center h-100">
@@ -75,7 +78,7 @@ function Profile() {
                       style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem'}}>
                       <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                         alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />                    
-                      <MDBCardText>Web Designer</MDBCardText>
+                      <MDBCardText>{userType.name}</MDBCardText>
                       <MDBIcon far icon="edit mb-5" />
                     </MDBCol>
                     <MDBCol md="8">
@@ -105,7 +108,7 @@ function Profile() {
                           </MDBCol>
                           <MDBCol size="10" className="mb-3">
                             <MDBTypography tag="h6">Description</MDBTypography>
-                            <MDBCardText className="text-muted">{userType.name}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.description}</MDBCardText>
                           </MDBCol>
                         </MDBRow>
     
@@ -131,6 +134,7 @@ function Profile() {
             </MDBRow>
           </MDBContainer>
         </section>
+      </>
       );
     }
 export default Profile;
