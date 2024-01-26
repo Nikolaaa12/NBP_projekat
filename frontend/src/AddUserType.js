@@ -1,31 +1,28 @@
 import {useState} from 'react'
-import { useNavigate  } from 'react-router-dom'; 
 import Axios from 'axios'
+import { useNavigate  } from 'react-router-dom'; 
 
 function AddUserType(){
-    const navigate = useNavigate();
-    const url = "http://localhost:5105/api/UserType/Add"
-    const [name,Setname]= useState("bb")
-
-   async function submit(e){
-        await fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                name
-            }),
-            credentials: 'include',
-            mode: 'cors'
-        });
-    };
-
+    const url = "http://localhost:5105/api/UserType/AddUserType"
+    const [data,setData]=useState({
+        name:""
+    })
     function handle(e){
-        const newdata={...name}
-        newdata[e.target.id]=e.target.value
-        Setname(newdata)
-        console.log(newdata)
-    };
-
+        var newdata = { ...data };
+        newdata[e.target.id] = e.target.value; // Use square brackets for assignment
+        setData(newdata);
+        console.log(newdata);
+    }
+    function submit(e){
+        console.log(data.name)
+        Axios.post(url,{
+            name:data.name
+        })
+        .then(res=>{
+            console.log(res.data)
+        })
+    }
+    const navigate = useNavigate();
     return(
         <>
             <form onSubmit={(e)=>submit(e)} className='container1'>
@@ -37,11 +34,11 @@ function AddUserType(){
                 </div>
                 <div className='inputs'>
                     <div className='input'>
-                        <input id="name" className='input1' type='text' placeholder='Enter name of a user type'></input>
+                        <input  onChange={(e)=>handle(e)} id="name" value={data.name} className='input1' type='text' placeholder='Enter name of a user type'></input>
                     </div>
                 </div>
 
-                <button submit="true" type='submit' className='sign-in'>Add</button>
+                <button submit="true" className='sign-in'>Add</button>
                 </form>
         </>
     )

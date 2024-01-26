@@ -3,7 +3,7 @@ using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Neo4jClient;
 using Neo4jClient.Cypher;
-
+using backend.DTOs;
 
 [Route("api/UserType")]
 [ApiController]
@@ -66,11 +66,11 @@ public class UserTypeController : ControllerBase
 
     [HttpPost]
     [Route("AddUserType")]
-    public async Task<IActionResult> AddUserType([FromBody] string name)
+    public async Task<IActionResult> AddUserType( AddUserTypeDTO ad)
     {
         try
         {
-            var newUserType = await service.userTypeRepository.Create(name);
+            var newUserType = await service.userTypeRepository.Create(ad.name);
 
             return Ok(newUserType);
         }
