@@ -13,12 +13,6 @@ import './DeleteUserType.css';
     function DeleteUserType(){ 
         const [userTypes, setUserTypes] = useState([]);
   
-        const handleTypeClick = (typeId) => {
-            // Redirect to the corresponding type page
-            // Implement your navigation logic here
-            console.log(`Redirect to type with ID: ${typeId}`);
-            
-          };
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -46,13 +40,30 @@ import './DeleteUserType.css';
       fetchData();
     }, []);
 
+    function submit(e){
+      e.preventDefault()
+      const deleteId = parseInt(value);
+      const uri = `http://localhost:5105/api/UserType/Delete?id=${deleteId}`;
+      Axios.delete(uri)
+      .then(() => {
+        console.log('Delete successful');
+        // Optionally, you can update the userTypes state to reflect changes in the UI
+    })
+    .catch(error => {
+        console.error('Delete failed:', error);
+    });
+    }
+
+
     const [value, setValue]=useState('');
+
     function handleSelect(event){
         setValue(event.target.value);
+        console.log(event.target.value);
     }
 
   return(<>
-      <form className='container1'>
+      <form onSubmit={submit} className='container1'>
                 <div className='header'>
                     <div className='text'>
                       Delete UserType
@@ -62,12 +73,13 @@ import './DeleteUserType.css';
                 <div className='selector'>
                   <h4>Choose user type to delete</h4>
                   <select onChange={handleSelect}>
-                    <option>1</option>
-                    <option>2</option>
+                  {userTypes.map(user=>(
+                      <option value={user.id}>{user.name}</option>
+                    ))}
                   </select>
                 </div>
-                <button submit="true" className='sign-in'>Delete</button>
-                </form>
+          <button type='submit' submit="true" className='sign-in'>Delete</button>
+      </form>
     </>
   )
 }
