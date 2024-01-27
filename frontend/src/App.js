@@ -19,11 +19,35 @@ function App() {
 
   
 
-  const [username, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [userId, setUserId] = useState(-1);
-  
+  //const Navigate = useNavigate();
 
-    
+  useEffect(() => {
+    (
+      async () => {
+        try {
+          const response = await fetch('http://localhost:5105/api/User/GetUser', {
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            mode: 'cors',
+          });
+
+          if (response.status !== 200) {
+           // <Navigate to="/login" />;
+            return;
+          }
+
+          const content = await response.json();
+          setUsername(content.username);
+          setUserId(content.id);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    )();
+  }, []);
+
 
   return (
     <>
@@ -32,7 +56,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LogIn />} />
+          <Route path="/login" element={<LogIn setUsername={setUsername} setUserId={setUserId}/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/fixers/:userTypeId/:userTypeName" element={<Fixers />} />
           <Route path="/addusertype" element={<AddUserType/>} />
@@ -44,6 +68,7 @@ function App() {
           
         </Routes>
        </BrowserRouter>
+       <div>{userId}</div>
     </>
   );
 }

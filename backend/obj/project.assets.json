@@ -4356,6 +4356,7 @@
       "Microsoft.AspNetCore.OpenApi >= 7.0.13",
       "Neo4j.Driver >= 5.16.0",
       "Neo4jClient >= 5.1.14",
+      "Newtonsoft.Json >= 13.0.3",
       "Swashbuckle.AspNetCore >= 6.5.0",
       "System.IdentityModel.Tokens.Jwt >= 7.0.3"
     ]
@@ -4432,6 +4433,10 @@
           "Neo4jClient": {
             "target": "Package",
             "version": "[5.1.14, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.3, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

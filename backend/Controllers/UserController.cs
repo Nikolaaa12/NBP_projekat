@@ -4,6 +4,7 @@ using backend.Services.IServices;
 using backend.DTOs;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Neo4jClient;
 
@@ -46,22 +47,8 @@ namespace backend.Controllers
                 var result = await this._userService.Login(user.Email, user.Password);
 
                 Response.Cookies.Append("jwt", result, new CookieOptions { HttpOnly = true, Secure = true, SameSite = SameSiteMode.None });
-                return Ok(new { message = "success" });
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
 
-        [Route("UpdateProfile")]
-        [HttpPut]
-        public async Task<IActionResult> UpdateProfile([FromBody] UserUpdateDTO user)
-        {
-            try
-            {
-                await this._userService.UpdateProfile(user);
-                return Ok(user);
+                return Ok(new { message = "success" });
             }
             catch (Exception e)
             {
