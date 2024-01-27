@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -89,13 +90,13 @@ public class ReservationController : ControllerBase
     }
     [HttpPost]
     [Route("Add")]
-    public async Task<IActionResult> AddReservation(int idhandyman,int idcustomer,DateOnly date)
+    public async Task<IActionResult> Add(AddReservationDTO addReservationDTO)
     {
         try
         {
-            var reservation = await service.reservationRepository.Create(idcustomer,idhandyman,date);
-            service.reservationRepository.AssignCustomer(reservation.Id,idcustomer);
-            service.reservationRepository.AssignHandyman(reservation.Id,idhandyman);
+            var reservation = await service.reservationRepository.Create(addReservationDTO.IdCustomer,addReservationDTO.IdHandyMan,addReservationDTO.Date);
+            service.reservationRepository.AssignCustomer(reservation.Id,addReservationDTO.IdCustomer);
+            service.reservationRepository.AssignHandyman(reservation.Id,addReservationDTO.IdHandyMan);
 
             return Ok(reservation);
         }
