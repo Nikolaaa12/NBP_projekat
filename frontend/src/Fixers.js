@@ -49,7 +49,6 @@ import OurNavbar from './Navbar';
   }, [typeId]);
   return(<>
     <div>
-    <h2 style={{textAlign: 'center', fontSize: '50px', fontWeight: 'bold'}}>{userTypeName}</h2>
       <div>
         {users.map((user) => (
           <div key={user.id} className='fixers-wrapper'>
