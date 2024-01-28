@@ -24,16 +24,32 @@ function Fixers() {
     setData(newdata);
     console.log(newdata);
   }
-  function submit(e,id) {
-    console.log(data)
-    Axios.post(url, {
-      date: data.date,
-      idCustomer: logovanikorisnik,
-      idHandyMan: parseInt(id)
-    })
-      .then(res => {
-        console.log(res.data)
-      })
+  async function submit(e, id) {
+    e.preventDefault();
+    console.log(logovanikorisnik);
+    if (logovanikorisnik === '-1') {
+      console.log("User not logged in. Please log in to make a reservation.");
+      return;
+    }
+  
+    try {
+      const response = await Axios.post(url, {
+        date: data.date,
+        idCustomer: logovanikorisnik,
+        idHandyMan: parseInt(id)
+      });
+  
+      if (response.status === 200) {
+        console.log("Reservation successful!");
+        // Add logic here to handle the successful reservation, if needed.
+      } else {
+        console.log("Reservation failed. Please try again.");
+        // Add logic here to handle the failed reservation, if needed.
+      }
+    } catch (error) {
+      console.error('Error making reservation:', error);
+      // Add logic here to handle the reservation error, if needed.
+    }
   }
   const navigate = useNavigate();
   const { userTypeId, userTypeName,logovanikorisnik } = useParams();

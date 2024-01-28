@@ -5,28 +5,28 @@ import { useNavigate, Route } from 'react-router-dom';
 import { IonIcon, IonSelect, IonLabel, IonSelectOption } from '@ionic/react'; // Import IonIcon from the '@ionic/react' package
 import { infinite, person } from 'ionicons/icons';
 
-
 function OurNavbar({ userId }) {
-
   const navigate = useNavigate();
-  var logovanikorisnik = parseInt(userId);
+  const [logovanikorisnik, setLogovanikorisnik] = useState(-1);
   const [userTypes, setUserTypes] = useState([]);
   const [user, setUser] = useState({
     email: '',
     username: '',
     name: '',
-    admin:false,
+    admin: false,
     lastName: '',
     city: '',
     description: '',
     pricePerHour: 0,
-    // ... other properties
   });
+
+  useEffect(() => {
+    setLogovanikorisnik(parseInt(userId));
+  }, [userId]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user data only if the user is logged in (userId is not -1)
         if (logovanikorisnik !== -1) {
           const userResponse = await fetch(`http://localhost:5105/api/User/GetUserbyId?id=${logovanikorisnik}`, {
             headers: {
@@ -37,31 +37,25 @@ function OurNavbar({ userId }) {
             mode: 'cors',
           });
 
-          if (!userResponse.ok) {
-            throw new Error(`HTTP error! Status: ${userResponse.status}`);
+          if (userResponse.ok) {
+            const userData = await userResponse.json();
+            setUser(userData);
           }
-
-          const userData = await userResponse.json();
-          setUser(userData);
-          console.log(user);
         }
 
         const response = await fetch('http://localhost:5105/api/UserType/Get', {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            // Include any additional headers if needed
           },
           credentials: 'include',
           mode: 'cors',
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.ok) {
+          const data = await response.json();
+          setUserTypes(data);
         }
-
-        const data = await response.json();
-        setUserTypes(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -69,13 +63,41 @@ function OurNavbar({ userId }) {
 
     fetchData();
   }, [logovanikorisnik]);
+
   const handleTypeClick = (typeId, typeName) => {
-    // Redirect to the corresponding type page
-    // Implement your navigation logic here
-    console.log(`Redirect to type with ID: ${typeId}`);
     navigate(`/fixers/${typeId}/${typeName}/${logovanikorisnik}`);
   };
 
+  const logout = () => {
+    fetch('http://localhost:5105/api/User/Logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      mode: 'cors',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        setLogovanikorisnik(-1);
+        setUser({
+          email: '',
+          username: '',
+          name: '',
+          admin: false,
+          lastName: '',
+          city: '',
+          description: '',
+          pricePerHour: 0,
+        });
+      })
+      .catch(error => {
+        console.error('Logout error:', error);
+      });
+  };
 
   return (
     <>
@@ -119,7 +141,7 @@ function OurNavbar({ userId }) {
                     <hr />
                     <NavDropdown.Item href="/myreservations">My reservations</NavDropdown.Item>
                     <hr />
-                    <NavDropdown.Item href="#action/3.6">Log out</NavDropdown.Item>
+                    <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>
                   </NavDropdown>
                   <Nav.Link><IonIcon icon={person}></IonIcon></Nav.Link>
                 </div>
@@ -129,7 +151,7 @@ function OurNavbar({ userId }) {
         </Container>
       </Navbar>
     </>
-  )
+  );
 }
 
 export default OurNavbar;
