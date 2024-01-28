@@ -3,6 +3,8 @@ import './Profile.css';
 import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import OurNavbar from './Navbar';
+import { IonIcon } from '@ionic/react';
+import { thumbsDown, thumbsUp } from 'ionicons/icons';
 
 function Profile() {
   const { userId } = useParams();
@@ -66,6 +68,31 @@ function Profile() {
 
   }, [userId]);
 
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+
+  const incrementLikes = () => {
+    if (!liked) {
+      setUser(prevState => ({
+        ...prevState,
+        upVotes: prevState.upVotes + 1,
+      }));
+      setLiked(true);
+      setDisliked(false); // Reset dislike status
+    }
+  };
+
+  const incrementDislikes = () => {
+    if (!disliked) {
+      setUser(prevState => ({
+        ...prevState,
+        downVotes: prevState.downVotes + 1,
+      }));
+      setDisliked(true);
+      setLiked(false); // Reset like status
+    }
+  };
+
     
     return (
       <>
@@ -80,7 +107,10 @@ function Profile() {
                       <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                         alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />                    
                       <MDBCardText>{userType.name}</MDBCardText>
-                      <MDBIcon far icon="edit mb-5" />
+                      <div className='likeAndDislike'>
+                        <IonIcon  onClick={incrementLikes} className={`iconLD ${liked ? 'active' : ''}`} icon={thumbsUp}></IonIcon>
+                        <IonIcon onClick={incrementDislikes} className={`iconLD ${disliked ? 'active' : ''}`} icon={thumbsDown}></IonIcon>
+                      </div>
                     </MDBCol>
                     <MDBCol md="8">
                       <MDBCardBody className="p-4">
@@ -102,6 +132,14 @@ function Profile() {
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">Last name</MDBTypography>
                             <MDBCardText className="text-muted">{user.lastName}</MDBCardText>
+                          </MDBCol>
+                          <MDBCol size="6" className="mb-3">
+                            <MDBTypography tag="h6">Likes</MDBTypography>
+                            <MDBCardText className="text-muted">{user.upVotes}</MDBCardText>
+                          </MDBCol>
+                          <MDBCol size="6" className="mb-3">
+                            <MDBTypography tag="h6">Dislikes</MDBTypography>
+                            <MDBCardText className="text-muted">{user.downVotes}</MDBCardText>
                           </MDBCol>
                           <MDBCol size="6" className="mb-3">
                             <MDBTypography tag="h6">City</MDBTypography>

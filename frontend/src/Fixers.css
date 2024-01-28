@@ -1,74 +1,146 @@
-body{
-    background-color: #ddd;
-}
-
-.fixers-wrapper{
+.fixer-name{
     margin-top: 5%;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    width: fit-content;
-
-    display: flex;
-    flex-direction: column;   
 }
 
-.fixers-wrapper img{
+.table {
+    border-collapse: collapse;
+    width:100%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .table {
+      overflow-x: auto; /* Allow horizontal scrolling */
+    }
+  }
+
+  .table{
+    border: 2px solid;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px; /* Adjust as needed */
+    border-bottom: 1px solid #ddd;
+    font-size: 14px; /* Adjust as needed */
+    border-bottom: 1px solid #ddd; /* Border between rows */
+  border-right: 1px solid #ddd; /* Border between cells */
+    text-align: center; /* Center horizontally */
+  vertical-align: middle;
+  }
+
+  
+  .table th {
+    background-color: #2B3035;
+    color: white;
+    font-weight: bold;
+  }
+
+tr{
+    border: 1px solid;
+}
+
+tr img{
     width: 10vw;
     height: 10vw;
 }
 
-.slika-podaci{
-    padding: 2%;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-}
-
 .slika-podaci:hover{
-    background-color: #ddd;
-    border: 1px solid;
-}
-
-.item-wrapper{
-    background-color: #fff;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    width: fit-content;
-    width: 90vw;
-    min-width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2%;
-    border-radius: 16px;
-    border: 1px solid;
-}
-
-.personal-info{
-    margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.cena{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    font-weight: bold;
-}
-
-.item-wrapper button{
-    width: fit-content;
-    height: fit-content;
     background-color: #2B3035;
-    color: #fff;
-    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.prvi{
+.description-cont:hover{
+    background-color: #2B3035;
+    color: white;
+}
+
+
+td button {
+    background-color: #2B3035; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 16px;
+  }
+
+td button:active{
+    transform: scale(0.9);
+}
+
+.button-container button{
+    background-color: #2B3035; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 16px;
+}
+
+.button-container button:active{
+    transform: scale(0.9);
+}
+
+.button-container {
+    text-align: center; /* Center the button horizontally */
+    margin-bottom: 20px; /* Add some space between the button and the menu */
+  }
+  
+  .filter-menu {
+    width: 0; /* Set initial width to zero */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10rem;
+    background-color: white;
+    border-right: 1px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 999;
+    overflow: hidden; /* Hide content when closed */
+    transition: width 0.5s ease, visibility 0.5s ease;
+    visibility: hidden;
+  }
+
+  .filter-menu.open {
+    width: 400px; /* Set the width to the desired value when open */
+    visibility: visible;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .filter-menu {
+      width: 100%; /* Set the width to 100% for smaller screens */
+      left: auto; /* Reset the left property to its default value */
+      padding: 20px; /* Adjust padding for smaller screens */
+      text-align: center; /* Center the content horizontally */
+    }
+  }
+
+.closebtn{
+    margin-top: 10rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }
 
+.criteria-inputs input{
+    width: 100%;
+}

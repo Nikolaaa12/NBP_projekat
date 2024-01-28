@@ -9,5 +9,18 @@
     background: linear-gradient(to right bottom, rgba(44, 62, 80, 1), rgba(52, 73, 94, 1));
   }
   
+.likeAndDislike{
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.iconLD{
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+}
   
-  
+.iconLD:hover{
+  color: #2B3035;
+}
