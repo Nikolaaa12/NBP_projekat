@@ -25,7 +25,17 @@ function Fixers() {
     console.log(newdata);
   }
   function submit(e, id) {
-    console.log(data)
+    e.preventDefault();
+
+  // Check if the selected date is in the past
+  const currentDate = new Date();
+  const selectedDate = new Date(data.date);
+
+  if (selectedDate < currentDate) {
+    // Display an error message or handle it appropriately
+    console.error('Selected date is in the past.');
+    return;
+  }
     Axios.post(url, {
       date: data.date,
       idCustomer: logovanikorisnik,
@@ -192,7 +202,7 @@ const applyFilters = async () => {
                 </td>
                 <td className='prvi'>
                   <MDBInput onChange={(e) => handle(e)} id="date" value={data.date} wrapperClass='mb-4' type='date' required />
-                  <button submit="true">Schedule</button>
+                  <button type="submit" onClick={(e) => submit(e, user.id)}>Schedule</button>
                 </td>
               </tr>
             ))}
