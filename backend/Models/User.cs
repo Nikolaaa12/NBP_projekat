@@ -17,6 +17,7 @@ namespace backend.Models;
         public int PricePerHour { get; set; }
 
         //public virtual ICollection<GameRequest> RecipientGameInvitations { get; set; }
+        public Boolean Admin { get; set; }
         
         public int UpVotes { get; set; }
         public int DownVotes { get; set; }

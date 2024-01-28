@@ -74,10 +74,15 @@ namespace backend.Repository
 
                 int? maxId = await this.GetMaxId();
 
-                if (maxId == null)
+                if (maxId == null){
                     user.Id = 1;
+                    user.Admin=true;
+                }
                 else
+                {
+                    user.Admin=false;
                     user.Id = maxId.Value + 1;
+                }
                 user.UpVotes = 0;
                 user.DownVotes = 0;
                 await this.Add(user);

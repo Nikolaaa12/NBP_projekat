@@ -17,6 +17,7 @@ function Fixers() {
     idCustomer: "1",
     idHandyMan: "2"
   })
+  
   function handle(e) {
     var newdata = { ...data };
     newdata[e.target.id] = e.target.value; // Use square brackets for assignment
