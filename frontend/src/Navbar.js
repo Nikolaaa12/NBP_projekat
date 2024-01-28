@@ -93,6 +93,7 @@ function OurNavbar({ userId }) {
           description: '',
           pricePerHour: 0,
         });
+        navigate(`/`);
       })
       .catch(error => {
         console.error('Logout error:', error);
@@ -139,7 +140,7 @@ function OurNavbar({ userId }) {
                     <NavDropdown.Item href={`/profile/${logovanikorisnik}`}>My profile</NavDropdown.Item>
                     <NavDropdown.Item href="/editprofile">Edit profile</NavDropdown.Item>
                     <hr />
-                    <NavDropdown.Item href="/myreservations">My reservations</NavDropdown.Item>
+                    <NavDropdown.Item href={`/myreservations/${logovanikorisnik}`}>My reservations</NavDropdown.Item>
                     <hr />
                     <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>
                   </NavDropdown>

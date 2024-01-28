@@ -64,7 +64,7 @@ function App() {
           <Route path="/deleteUser" element={<DeleteUser />} />
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/editprofile" element={<Edit />} />
-          <Route path="/myreservations" element={<MyReservations />} />
+          <Route path="/myreservations/:logovanikorisnik" element={<MyReservations />} />
           
         </Routes>
        </BrowserRouter>
