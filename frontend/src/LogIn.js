@@ -29,7 +29,28 @@ function LogIn(props) {
               password
           }), 
           mode:"cors"
-      });
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Assuming the response contains userId and username
+        const { id, username } = data;
+
+        // Set userId and username using the props functions
+        setUserId(id);
+        setUsername(username);
+
+        // Navigate to the home page
+        navigate('/');
+    })
+    .catch(error => {
+        // Handle login error
+        console.error('Login error:', error);
+    });
       }
 
 

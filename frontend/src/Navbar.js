@@ -6,9 +6,10 @@ import { IonIcon, IonSelect, IonLabel, IonSelectOption } from '@ionic/react'; //
 import { infinite, person } from 'ionicons/icons';
 
 
-function OurNavbar(){
+function OurNavbar({ userId }){
 
     const navigate = useNavigate();
+    var logovanikorisnik = parseInt(userId);
     const [userTypes, setUserTypes] = useState([]);
   
     useEffect(() => {
@@ -42,7 +43,7 @@ function OurNavbar(){
       // Redirect to the corresponding type page
       // Implement your navigation logic here
       console.log(`Redirect to type with ID: ${typeId}`);
-      navigate(`/fixers/${typeId}/${typeName}`);
+      navigate(`/fixers/${typeId}/${typeName}/${logovanikorisnik}`);
     };
 
 
@@ -78,7 +79,7 @@ function OurNavbar(){
             </Nav.Link>
             <div className='profile-icon-image'>
             <NavDropdown title="Profile" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href='/profile/1'>My profile</NavDropdown.Item>
+              <NavDropdown.Item href={`/profile/${logovanikorisnik}`}>My profile</NavDropdown.Item>
               <NavDropdown.Item href="/editprofile">Edit profile</NavDropdown.Item>
               <hr/>
               <NavDropdown.Item href="/myreservations">My reservations</NavDropdown.Item>

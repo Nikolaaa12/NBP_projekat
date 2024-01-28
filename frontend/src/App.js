@@ -52,13 +52,13 @@ function App() {
   return (
     <>
        <BrowserRouter>
-       <OurNavbar />
+       <OurNavbar userId={userId} />
         <Routes>
 
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn setUsername={setUsername} setUserId={setUserId}/>} />
           <Route path="/register" element={<Register />} />
-          <Route path="/fixers/:userTypeId/:userTypeName" element={<Fixers />} />
+          <Route path="/fixers/:userTypeId/:userTypeName/:logovanikorisnik" element={<Fixers />} />
           <Route path="/addusertype" element={<AddUserType/>} />
           <Route path="/deleteUT" element={<DeleteUserType />} />
           <Route path="/deleteUser" element={<DeleteUser />} />

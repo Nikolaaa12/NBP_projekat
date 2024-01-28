@@ -27,7 +27,7 @@ function Fixers() {
     console.log(data)
     Axios.post(url, {
       date: data.date,
-      idCustomer: parseInt(data.idCustomer),
+      idCustomer: logovanikorisnik,
       idHandyMan: parseInt(id)
     })
       .then(res => {
@@ -35,7 +35,9 @@ function Fixers() {
       })
   }
   const navigate = useNavigate();
-  const { userTypeId, userTypeName } = useParams();
+  const { userTypeId, userTypeName,logovanikorisnik } = useParams();
+  //console.log(logovanikorisnik)
+
   const [users, setUsers] = useState([]);
   const typeId = userTypeId; // Replace with the actual type ID you want to fetch
   const handleWrapperClick = (userId) => {
