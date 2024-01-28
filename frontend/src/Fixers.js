@@ -1,3 +1,5 @@
+import {ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { IonIcon } from '@ionic/react';
 import { logoFacebook, logoTwitter, mail, lockClosed, close } from 'ionicons/icons';
 import Axios from 'axios'
@@ -8,6 +10,7 @@ import plumbing from '../src/plumbing-logos.jpg';
 import './Fixers.css';
 import { MDBInput } from 'mdb-react-ui-kit';
 import OurNavbar from './Navbar';
+
 
 
 function Fixers() {
@@ -27,13 +30,25 @@ function Fixers() {
   function submit(e, id) {
     e.preventDefault();
 
+    if (logovanikorisnik === '-1') {
+      // Display an error message or redirect to the login page
+      toast.error('You need to log in to schedule a service', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      return;
+    }
+
   // Check if the selected date is in the past
   const currentDate = new Date();
   const selectedDate = new Date(data.date);
 
   if (selectedDate < currentDate) {
     // Display an error message or handle it appropriately
-    console.error('Selected date is in the past.');
+    toast.error('Selected date is in the past', {
+      position: 'top-right',
+      autoClose: 3000,
+    });// Notification will be closed after 3 seconds
     return;
   }
     Axios.post(url, {
@@ -209,6 +224,7 @@ const applyFilters = async () => {
           </tbody>
         </table>
       </div>
+      <ToastContainer />
     </div>
 
   )

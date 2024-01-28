@@ -61,6 +61,12 @@ function MyReservations() {
 
   function submit(e,id){
     e.preventDefault()
+    const isConfirmed = window.confirm('Are you sure you want to cancel this reservation?');
+
+  if (!isConfirmed) {
+    // User clicked "Cancel" in the confirmation dialog
+    return;
+  }
     const deleteId = parseInt(id);
     const uri = `http://localhost:5105/api/Reservation/Delete?id=${deleteId}`;
     Axios.delete(uri)
