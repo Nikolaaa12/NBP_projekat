@@ -27,14 +27,19 @@ function Fixers() {
     setData(newdata);
     console.log(newdata);
   }
+
+  
+
+
   function submit(e, id) {
     e.preventDefault();
 
     if (logovanikorisnik === '-1') {
       // Display an error message or redirect to the login page
       toast.error('You need to log in to schedule a service', {
-        position: 'top-right',
-        autoClose: 3000,
+        className: 'custom-toast',
+      bodyClassName: 'custom-toast-body',
+      autoClose: 3000,
       });
       return;
     }
@@ -46,7 +51,8 @@ function Fixers() {
   if (selectedDate < currentDate) {
     // Display an error message or handle it appropriately
     toast.error('Selected date is in the past', {
-      position: 'top-right',
+      className: 'custom-toast',
+      bodyClassName: 'custom-toast-body',
       autoClose: 3000,
     });// Notification will be closed after 3 seconds
     return;

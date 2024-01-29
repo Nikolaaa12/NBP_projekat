@@ -144,3 +144,14 @@ td button:active{
 .criteria-inputs input{
     width: 100%;
 }
+
+.custom-toast {
+  background-color: #2B3035; /* Tomato color */
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Custom styles for the toast body */
+.custom-toast-body {
+  font-size: 16px;
+}
