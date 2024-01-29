@@ -6,6 +6,7 @@ import Home from './Home';
 import LogIn from './LogIn';
 import Register from './Register';
 import Fixers from './Fixers';
+import AddAdminPage from './AddAdmin';
 import Profile from './Profile';
 import Edit from './Edit';
 import MyReservations from './MyReservation';
@@ -62,6 +63,7 @@ function App() {
           <Route path="/addusertype" element={<AddUserType/>} />
           <Route path="/deleteUT" element={<DeleteUserType />} />
           <Route path="/deleteUser" element={<DeleteUser />} />
+          <Route path="/addAdmin" element={<AddAdminPage />} />
           <Route path="/profile/:userId/:logovanikorisnik" element={<Profile />} />
           <Route path="/editprofile" element={<Edit />} />
           <Route path="/myreservations/:logovanikorisnik" element={<MyReservations />} />

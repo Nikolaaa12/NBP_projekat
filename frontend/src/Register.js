@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {ToastContainer, toast } from 'react-toastify';
 import {
   MDBContainer,
   MDBRow,
@@ -75,7 +76,11 @@ function Register() {
         navigate('/login');
       })
       .catch((error) => {
-        console.error('Error registering user:', error);
+        toast.error(error.response.data, {
+          className: 'custom-toast',
+          bodyClassName: 'custom-toast-body',
+          autoClose: 3000,
+        });
       });
   };
 
@@ -172,6 +177,7 @@ function Register() {
           </MDBRow>
         </MDBContainer>
       </form>
+      <ToastContainer />
     </>
   );
 }

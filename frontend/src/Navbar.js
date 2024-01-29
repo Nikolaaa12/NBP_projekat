@@ -118,6 +118,7 @@ function OurNavbar({ userId }) {
               {user.admin && (
                 <NavDropdown title="Add" id="collapsible-nav-dropdown">
                   <NavDropdown.Item href="/addusertype">Add User Type</NavDropdown.Item>
+                  <NavDropdown.Item href="/addAdmin">Add Admin</NavDropdown.Item>
                 </NavDropdown>
               )}
 
