@@ -62,7 +62,7 @@ function App() {
           <Route path="/addusertype" element={<AddUserType/>} />
           <Route path="/deleteUT" element={<DeleteUserType />} />
           <Route path="/deleteUser" element={<DeleteUser />} />
-          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/profile/:userId/:logovanikorisnik" element={<Profile />} />
           <Route path="/editprofile" element={<Edit />} />
           <Route path="/myreservations/:logovanikorisnik" element={<MyReservations />} />
           

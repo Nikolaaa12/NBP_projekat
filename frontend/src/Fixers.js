@@ -76,7 +76,7 @@ function Fixers() {
     // Handle the click event, e.g., navigate to the profile page
     // You can use the useHistory hook or any navigation method you prefer
     console.log(`Clicked on user with ID: ${userId}`);
-    navigate(`/profile/${userId}`);
+    navigate(`/profile/${userId}/${logovanikorisnik}`);
   }
 
   useEffect(() => {

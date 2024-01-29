@@ -53,13 +53,16 @@ namespace backend.Repository
         {
             return await this.GetAllWhere(n => n.TypeOfUser == id);
         }
-        public void UpVote(User a)
+        public User UpVote(User a)
         {
             a.UpVotes += 1;
+            return (this.UpdateUser(a));
+            
         }
-        public void DownVote(User a)
+        public User DownVote(User a)
         {
             a.DownVotes += 1;
+            return (this.UpdateUser(a));
         }
 
         public User UpdateUser(User user)

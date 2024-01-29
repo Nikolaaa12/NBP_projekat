@@ -9,8 +9,8 @@ namespace backend.Repository.IRepository
         Task<User> GetUserById(int id);
         Task<IQueryable<User>> GetUsersByCity(string city);
         Task<IQueryable<User>> GetUsersByType(int id);
-        void UpVote(User a);
-        void DownVote(User a);
+        User UpVote(User a);
+        User DownVote(User a);
         User UpdateUser(User user);
         Task<User> Create(User user);
         Task<int?> GetMaxId();

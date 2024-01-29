@@ -100,6 +100,38 @@ namespace backend.Controllers
             }
 
         }
+        [Route("UpVote")]
+        [HttpPut]
+        public async Task<IActionResult> UpVote(int id)
+        {
+            var result = await this._userService.userRepository.GetUserById(id);
+            var newresult=this._userService.userRepository.UpVote(result);
+            if (newresult!=null)
+            {
+                return Ok("Upvoted");
+            }
+            else
+            {
+                return NotFound("No user found");
+            }
+
+        }
+        [Route("DownVote")]
+        [HttpPut]
+        public async Task<IActionResult> DownVote(int id)
+        {
+            var result = await this._userService.userRepository.GetUserById(id);
+            var newresult=this._userService.userRepository.DownVote(result);
+            if (newresult!=null)
+            {
+                return Ok("Downvoted");
+            }
+            else
+            {
+                return NotFound("No user found");
+            }
+
+        }
         [Route("GetUserbyId")]
         [HttpGet]
         public async Task<IActionResult> GetUserbyId(int id)
