@@ -127,7 +127,8 @@ td button:active{
 
   @media only screen and (max-width: 600px) {
     .filter-menu {
-      width: 100%; /* Set the width to 100% for smaller screens */
+      width: 100%;
+      height:100%; /* Set the width to 100% for smaller screens */
       left: auto; /* Reset the left property to its default value */
       padding: 20px; /* Adjust padding for smaller screens */
       text-align: center; /* Center the content horizontally */

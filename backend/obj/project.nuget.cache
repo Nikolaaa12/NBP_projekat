@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qmQqV1lSzEkZhfvAEr2XWJn8WiBnXzqyMhWH531Z2+VTYEh9pSskp/KuTvp4sym15kSzxxYZH0ZyCgolVsfOkg==",
+  "dgSpecHash": "NwlP84mGb54NvkAnIU2LtWqQ64P+7fKvQNnSELFQz5ShPO8ufYH/3J4T21Ofe3qs3ISo1qyZPaxTteF5cnKaHQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Dell\\Desktop\\NBP\\NBP_projekat\\backend\\backend.csproj",
+  "projectFilePath": "C:\\Users\\Dell\\Desktop\\NBP\\NBP_projekat\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dell\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
