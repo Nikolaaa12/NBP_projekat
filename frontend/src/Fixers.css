@@ -1,5 +1,5 @@
 .fixer-name{
-    margin-top: 5%;
+    margin-top: 5rem;
 }
 
 .table {
@@ -57,7 +57,7 @@ tr img{
 }
 
 
-td button {
+td button, .apply-criteria {
     background-color: #2B3035; /* Green */
     border: none;
     color: white;
@@ -140,10 +140,14 @@ td button:active{
     width: 30px;
     height: 30px;
     cursor: pointer;
+    background-color: #2B3035;
+    border-radius: 8px;
+    color: white;
 }
 
 .criteria-inputs input{
     width: 100%;
+    border-radius: 8px;
 }
 
 .custom-toast {

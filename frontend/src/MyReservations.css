@@ -1,37 +1,38 @@
-.res{
-    margin-top: 5rem;
-    text-align: center;
-}
+.table {
+    border-collapse: collapse;
+    width:100%;
+  }
 
-.reservations-wrapper{
-    margin-top: 3rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    width: fit-content;
+  @media only screen and (max-width: 600px) {
+    .table {
+      overflow-x: auto; /* Allow horizontal scrolling */
+    }
+  }
 
-    display: flex;
-    flex-direction: column;   
-}
+ 
 
-.one-wrapper{
-    background-color: #fff;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    width: fit-content;
-    width: 90vw;
-    min-width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2%;
-    border-radius: 16px;
-    border: 1px solid;
-}
+  .table{
+    border: 2px solid;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px; /* Adjust as needed */
+    border-bottom: 1px solid #ddd;
+    font-size: 14px; /* Adjust as needed */
+    border-bottom: 1px solid #ddd; /* Border between rows */
+  border-right: 1px solid #ddd; /* Border between cells */
+    text-align: center; /* Center horizontally */
+  vertical-align: middle;
+  }
 
-.price{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+  
+  .table th {
+    background-color: #2B3035;
+    color: white;
     font-weight: bold;
+  }
+
+tr{
+    border: 1px solid;
 }

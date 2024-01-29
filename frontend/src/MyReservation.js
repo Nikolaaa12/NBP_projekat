@@ -82,34 +82,39 @@ function MyReservations() {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center', fontSize: '50px', fontWeight: 'bold' }}>{"Dadad"}</h2>
-      <div>
-        {reservations.map((reservation, index) => (
-          <form key={reservation.id} onSubmit={(e) => submit(e, reservation.id)}>
-            <div className='fixers-wrapper'>
-              <div className='item-wrapper'>
-                <div className='slika-podaci'>
-                  <img src={plumbing} alt={`plumbing-${index}`} />
-                  <div className='personal-info'>
-                    <p>Username: {userDetails[index]?.username}</p>
-                    <p>Email: {userDetails[index]?.email}</p>
-                    <p>First name: {userDetails[index]?.name}</p>
-                    <p>Last name: {userDetails[index]?.lastName}</p>
-                  </div>
-                </div>
-                <div className='cena'>
-                  <h2>Price</h2>
-                  {reservation.idCustomer} $
-                </div>
-                <div className='prvi'>
-                <p>Date: {reservation.date}</p>
-                  <button type="submit">Cancel Reservation</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        ))}
-      </div>
+      <h2 className='reservations-title' style={{ textAlign: 'center', fontSize: '50px', fontWeight: 'bold', marginTop: '5rem'}}>My reservations</h2>
+      <table className='table'>
+          <thead className='table-head'>
+            <tr>
+              <th>Reservation ID</th>
+              <th>Customer ID</th>
+              <th>Handyman ID</th>
+              <th>Reservation date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {reservations.map((reservation)=>(
+              <tr key={reservation.id}>
+                <td>
+                  {reservation.id}
+                </td>
+                <td>
+                  {reservation.idCustomer}
+                </td>
+                <td>
+                  {reservation.idHandyMan}
+                </td>
+                <td>
+                  {reservation.date}
+                </td>
+                <td>
+                  <button className='cancelbtn' onClick={(e) => submit(e, reservation.id)}>Cancel reservation</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+      </table>
     </div>
   );
 }

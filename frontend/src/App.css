@@ -1,3 +1,8 @@
+body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 .App-logo {
   height: 40vmin;
@@ -34,28 +39,34 @@
   }
 }
 
-.background-img{
-  width: 100vw;
-  height: 80vh;
-}
-
-.animation-text{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .background {
   position: relative;
   text-align: center;
   color: black;
 }
 
-.animation-text h2{
+.background-img {
+  width: 100%; /* Ensure the image covers the entire width of its container */
+  height: 80vh; /* Allow the image to maintain its aspect ratio */
+}
+
+.animation-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.animation-text h2 {
   color: #2B3035;
   font-size: 40px;
   font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+  .animation-text h2 {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
 }
 
 .profile-icon-image{
@@ -63,6 +74,49 @@
   flex-direction: row;
 }
 
+.bestFixers{
+  margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+@media screen and (max-width: 600px) {
+  .bestFixers {
+    flex-direction: column; /* Change to column layout for smaller screens */
+    align-items: center; /* Center items vertically */
+    gap: 1rem;
+  }
+}
+
+.oneBestFixer{
+  padding: 2%;
+  border: 5px #2B3035;
+  border-radius: 16px;
+  border-style: ridge;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nameLastName{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.recommended-title{
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.oneBestFixer:hover{
+  background-color: #2B3035;
+  color: white;
+  cursor: pointer;
+}
 
 
 
