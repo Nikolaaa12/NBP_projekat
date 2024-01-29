@@ -83,6 +83,14 @@ namespace backend.Repository
                     user.Admin=false;
                     user.Id = maxId.Value + 1;
                 }
+                if(user.Customer == true)
+                    {
+                    user.TypeOfUser = -1;
+                    user.PricePerHour=0;
+                    user.Description="";
+                    }
+                else
+                    user.Customer = false;
                 user.UpVotes = 0;
                 user.DownVotes = 0;
                 await this.Add(user);

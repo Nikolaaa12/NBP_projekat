@@ -21,12 +21,15 @@ function Register() {
     username: '',
     email: '',
     city: '',
-    price: '',
+    pricePerHour: 0,
     description: '',
     password: '',
     repeatedPassword: '',
     picture: '',
-    userTypeId: '',
+    phoneNumber:'',
+    adress:'',
+    customer:false,
+    userTypeId: '1',
   });
 
   const [isHandyman, setIsHandyman] = useState(true); // Set default to Handyman
@@ -65,7 +68,6 @@ function Register() {
     e.preventDefault();
     Axios.post(url, {
       ...data,
-      price: parseInt(data.price),
       userTypeId: parseInt(data.userTypeId),
     })
       .then((res) => {
@@ -78,7 +80,9 @@ function Register() {
   };
 
   const handleInputChange = (e) => {
-    setData({ ...data, [e.target.id]: e.target.value });
+    const value = e.target.id === 'pricePerHour' ? parseInt(e.target.value) || '' : e.target.value;
+    console.log(value);
+    setData({ ...data, [e.target.id]: value  });
   };
 
   const handleUserTypeChange = (e) => {
@@ -86,8 +90,10 @@ function Register() {
     setDisabled(e.target.value === 'customer');
     if (e.target.value === 'customer') {
       console.log('Da')
+      setData({ ...data, [e.target.id]: e.target.value === 'customer' });
     }
     else {
+      setData({ ...data, [e.target.id]: e.target.value === 'customer' });
       console.log('Ne')
     }
   };
@@ -119,7 +125,15 @@ function Register() {
                       <MDBInput onChange={handleInputChange} id="city" value={data.city} wrapperClass="mb-4" label="Location" type="text" required />
                     </MDBCol>
                     <MDBCol col="6">
-                      <MDBInput disabled={disabled} onChange={handleInputChange} id="price" value={data.price} wrapperClass="mb-4" label="Price" type="number" required />
+                      <MDBInput disabled={disabled} onChange={handleInputChange} id="pricePerHour" value={data.pricePerHour} wrapperClass="mb-4" label="Price per hour" type="number" required />
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow>
+                    <MDBCol col="6">
+                      <MDBInput onChange={handleInputChange} id="phoneNumber" value={data.phoneNumber} wrapperClass="mb-4" label="PhoneNumber" type="number" required />
+                    </MDBCol>
+                    <MDBCol col="6">
+                      <MDBInput onChange={handleInputChange} id="adress" value={data.adress} wrapperClass="mb-4" label="Adress" type="text" required />
                     </MDBCol>
                   </MDBRow>
                   <div className="kont">

@@ -52,7 +52,10 @@ namespace backend.Services
                     user.Description,
                     user.City,
                     user.PricePerHour,
-                    user.UserTypeId
+                    user.UserTypeId,
+                    user.PhoneNumber,
+                    user.Adress,
+                    user.Customer
                 );
 
                 return await this.userRepository.Create(userCreated);

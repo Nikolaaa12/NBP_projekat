@@ -29,7 +29,8 @@ namespace backend.Controllers
             try
             {
                 var result = await this._userService.Register(user);
-                this._userService.userRepository.Assign(result.Id, result.TypeOfUser);
+                if(result.Customer==false)
+                    this._userService.userRepository.Assign(result.Id, result.TypeOfUser);
                 return Created("success", result);
             }
             catch (Exception e)

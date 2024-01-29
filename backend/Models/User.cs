@@ -14,6 +14,9 @@ namespace backend.Models;
         public string? Description { get; set; }
         public string? ProfilePicture { get; set; }
         public string? City { get; set; }
+        public Boolean Customer { get; set; }
+        public string? Adress { get; set; }
+        public string? PhoneNumber { get; set; }
         public int PricePerHour { get; set; }
 
         //public virtual ICollection<GameRequest> RecipientGameInvitations { get; set; }
@@ -27,7 +30,7 @@ namespace backend.Models;
         {
             
         }
-        public User(string name, string lastName, string username, string email, string password, string profilePicture, string description,string city,int price,int typeOfUser
+        public User(string name, string lastName, string username, string email, string password, string profilePicture, string description,string city,int price,int typeOfUser,string phoneNumber,string address,Boolean customer
             )
         {
             Name = name;
@@ -42,8 +45,11 @@ namespace backend.Models;
             PricePerHour=price;
             UpVotes = 0;
             DownVotes = 0;
+            Adress = address;
+            PhoneNumber = phoneNumber;
+            Customer = customer;
         }
-        public User(string name, string lastName, string username, string email, string password, string profilePicture, string city,int typeOfUser
+        public User(string name, string lastName, string username, string email, string password, string profilePicture, string city,int typeOfUser,string phoneNumber,string address
             )
         {
             Name = name;
@@ -56,5 +62,7 @@ namespace backend.Models;
             City=city;
             UpVotes = 0;
             DownVotes = 0;
+            Adress = address;
+            PhoneNumber = phoneNumber;
         }
     }
