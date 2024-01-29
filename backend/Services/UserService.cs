@@ -4,6 +4,7 @@ using backend.DTOs;
 using backend.Repository;
 using Neo4jClient;
 using backend.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace backend.Services
 {
@@ -25,7 +26,7 @@ namespace backend.Services
         {
             if (user != null)
             {
-               /* var userFound = await this.userRepository.GetUserByEmail(user.Email);
+                var userFound = await this.userRepository.GetUserByEmail(user.Email);
                 if (userFound != null)
                 {
                     throw new Exception("User with this email already exists.");
@@ -40,7 +41,7 @@ namespace backend.Services
                 if (user.Password != user.RepeatedPassword)
                 {
                     throw new Exception("Password missmatch");
-                } */
+                } 
                 var userCreated = new User
                 (
                     user.Name,
@@ -65,7 +66,21 @@ namespace backend.Services
                 return null;
             }
         }
-
+        public async Task<User> Downvote(int id){
+            var result = await this.userRepository.GetUserById(id);
+            var newresult=this.userRepository.DownVote(result);
+            return newresult;
+        }
+        public async Task<User> Upvote(int id){
+            var result = await this.userRepository.GetUserById(id);
+            var newresult=this.userRepository.UpVote(result);
+            return newresult;
+        }
+        public async Task<User> GiveAdmin(int id){
+            var result = await this.userRepository.GetUserById(id);
+            var newresult = this.userRepository.GiveAdmin(result);
+            return newresult;
+        }
         public async Task<string> Login(string email, string password)
         {
             var userFound = await this.userRepository.GetUserByEmail(email);

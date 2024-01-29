@@ -12,6 +12,7 @@ namespace backend.Repository.IRepository
         User UpVote(User a);
         User DownVote(User a);
         User UpdateUser(User user);
+        User GiveAdmin(User a);
         Task<User> Create(User user);
         Task<int?> GetMaxId();
         void Assign(int Userid,int UserTypeid);

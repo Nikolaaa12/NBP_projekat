@@ -29,10 +29,10 @@ namespace backend.Controllers
             try
             {
                 var result = await this._userService.Register(user);
-                if(result.Customer==false)
+                if (result.Customer == false)
                     this._userService.userRepository.Assign(result.Id, result.TypeOfUser);
                 return Created("success", result);
-            }
+            } 
             catch (Exception e)
             {
                 return BadRequest(e.Message);
@@ -54,6 +54,30 @@ namespace backend.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+        [HttpGet]
+        [Route("GetAll")]
+
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var users = await _userService.userRepository.GetAll();
+
+                if (users.Any())
+                {
+                    return Ok(users);
+                }
+                else
+                {
+                    return NotFound("No users found");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching user types: {ex.Message}");
+                return StatusCode(500, "Internal Server Error");
             }
         }
 
@@ -104,9 +128,8 @@ namespace backend.Controllers
         [HttpPut]
         public async Task<IActionResult> UpVote(int id)
         {
-            var result = await this._userService.userRepository.GetUserById(id);
-            var newresult=this._userService.userRepository.UpVote(result);
-            if (newresult!=null)
+            var result = await this._userService.Upvote(id);
+            if (result != null)
             {
                 return Ok("Upvoted");
             }
@@ -116,13 +139,28 @@ namespace backend.Controllers
             }
 
         }
+        [Route("GiveAdmin")]
+        [HttpPut]
+        public async Task<IActionResult> GiveAdmin(int id)
+        {
+            var result = await this._userService.GiveAdmin(id);
+            if (result != null)
+            {
+                return Ok("Admin given to this user");
+            }
+            else
+            {
+                return NotFound("No user found");
+            }
+
+        }
+
         [Route("DownVote")]
         [HttpPut]
         public async Task<IActionResult> DownVote(int id)
         {
-            var result = await this._userService.userRepository.GetUserById(id);
-            var newresult=this._userService.userRepository.DownVote(result);
-            if (newresult!=null)
+            var result = await this._userService.Downvote(id);
+            if (result != null)
             {
                 return Ok("Downvoted");
             }

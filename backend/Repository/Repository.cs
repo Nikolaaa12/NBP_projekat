@@ -19,9 +19,9 @@ namespace backend.Repository
                 .Where(predicate)
                 .Return(n => n.As<T>())
                 .ResultsAsync;
-            if (result == null)
+            if (result == null|| !result.Any())
             {
-                throw new Exception("Object with this ID dosent exists");
+                return null;
             }
             else
             {

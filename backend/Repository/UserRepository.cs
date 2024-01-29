@@ -64,6 +64,11 @@ namespace backend.Repository
             a.DownVotes += 1;
             return (this.UpdateUser(a));
         }
+         public User GiveAdmin(User a)
+        {
+            a.Admin = true;
+            return (this.UpdateUser(a));
+        }
 
         public User UpdateUser(User user)
         {
