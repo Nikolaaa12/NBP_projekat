@@ -67,13 +67,23 @@ function Fixers() {
     });// Notification will be closed after 3 seconds
     return;
   }
+  const isConfirmed = window.confirm('Are you sure you want create reservation?');
+
+  if (!isConfirmed) {
+    // User clicked "Cancel" in the confirmation dialog
+    return;
+  }
     Axios.post(url, {
       date: data.date,
       idCustomer: logovanikorisnik,
       idHandyMan: parseInt(id)
     })
       .then(res => {
-        console.log(res.data)
+        toast.success('Created Reservation!', {
+          className: 'custom-toast',
+          bodyClassName: 'custom-toast-body',
+          autoClose: 3000,
+        });
       })
   }
   const navigate = useNavigate();

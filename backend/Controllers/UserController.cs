@@ -154,6 +154,21 @@ namespace backend.Controllers
             }
 
         }
+        [Route("Edit")]
+        [HttpPut]
+        public async Task<IActionResult> Edit(UserUpdateDTO user)
+        {
+            var result = this._userService.UpdateProfile(user);
+            if (result != null)
+            {
+                return Ok("Profile Edited");
+            }
+            else
+            {
+                return NotFound("Error");
+            }
+
+        }
 
         [Route("DownVote")]
         [HttpPut]

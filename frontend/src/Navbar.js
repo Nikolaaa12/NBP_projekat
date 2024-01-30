@@ -145,9 +145,13 @@ function OurNavbar({ userId }) {
                 <div className='profile-icon-image'>
                   <NavDropdown title="Profile" id="collapsible-nav-dropdown">
                     <NavDropdown.Item href={`/profile/${logovanikorisnik}/${logovanikorisnik}`}>My profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/editprofile">Edit profile</NavDropdown.Item>
-                    <hr />
-                    <NavDropdown.Item href={`/myreservations/${logovanikorisnik}`}>My reservations</NavDropdown.Item>
+                    <NavDropdown.Item href={`/editprofile/${logovanikorisnik}`}>Edit profile</NavDropdown.Item>
+                    {!user.customer && (
+                      <>
+                        <hr />
+                        <NavDropdown.Item href={`/myreservations/${logovanikorisnik}`}>My reservations</NavDropdown.Item>
+                      </>
+                    )}
                     <hr />
                     <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>
                   </NavDropdown>

@@ -3,6 +3,7 @@ import plumbing from '../src/plumbing-logos.jpg';
 import { MDBInput } from 'mdb-react-ui-kit';
 import { useParams, useNavigate, Route  } from 'react-router-dom';
 import Axios from 'axios';
+import { Cursor } from 'react-simple-typewriter';
 
 function MyReservations() {
   const { logovanikorisnik } = useParams();
@@ -11,7 +12,12 @@ function MyReservations() {
   const [userDetails, setUserDetails] = useState([]);
   const navigate = useNavigate();
   
-
+  const handleWrapperClick = (userId) => {
+    // Handle the click event, e.g., navigate to the profile page
+    // You can use the useHistory hook or any navigation method you prefer
+    console.log(`Clicked on user with ID: ${userId}`);
+    navigate(`/profile/${userId}/${id}`);
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -93,16 +99,16 @@ function MyReservations() {
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {reservations.map((reservation, index)=>(
               <tr key={index}>
-                <td>
+                <td style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
                   {userDetails[index] && userDetails[index].name}
                 </td>
-                <td>
+                <td style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
                   {userDetails[index] && userDetails[index].lastName}
                 </td>
-                <td>
+                <td style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
                   {userDetails[index] && userDetails[index].email}
                 </td>
                 <td>

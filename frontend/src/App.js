@@ -65,7 +65,7 @@ function App() {
           <Route path="/deleteUser" element={<DeleteUser />} />
           <Route path="/addAdmin" element={<AddAdminPage />} />
           <Route path="/profile/:userId/:logovanikorisnik" element={<Profile />} />
-          <Route path="/editprofile" element={<Edit />} />
+          <Route path="/editprofile/:logovanikorisnik" element={<Edit />} />
           <Route path="/myreservations/:logovanikorisnik" element={<MyReservations />} />
           
         </Routes>

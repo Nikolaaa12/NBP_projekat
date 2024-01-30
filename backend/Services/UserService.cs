@@ -85,9 +85,9 @@ namespace backend.Services
         {
             var userFound = await this.userRepository.GetUserByEmail(email);
 
-            if (userFound == null) throw new Exception("Invalid credential");
+            if (userFound == null) throw new Exception("User with that mail doesn't exist");
 
-            if (!BCrypt.Net.BCrypt.Verify(password, userFound.Password)) throw new Exception("Invalid credential");
+            if (!BCrypt.Net.BCrypt.Verify(password, userFound.Password)) throw new Exception("Wrong password!");
 
             var jwt = jwtService.Generate(userFound.Id);
 
@@ -101,13 +101,11 @@ namespace backend.Services
                 var userFound = await this.userRepository.GetUserById(user.Id);
                 userFound.Name = user.Name;
                 userFound.LastName = user.LastName;
-                userFound.Username = user.Username;
-                userFound.Email = user.Email;
                 userFound.City =user.City;
                 userFound.Description=user.Description;
                 userFound.PricePerHour=user.PricePerHour;
-                userFound.Password = user.Password;
-                userFound.ProfilePicture = user.ProfilePicture;
+                userFound.Adress=user.Adress;
+                userFound.PhoneNumber=user.PhoneNumber;
                 this.userRepository.Update(userFound);
             }
         }
