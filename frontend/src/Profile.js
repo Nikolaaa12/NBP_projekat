@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import OurNavbar from './Navbar';
 import { IonIcon } from '@ionic/react';
 import { thumbsDown, thumbsUp } from 'ionicons/icons';
+import profileIcon from './profile-icon.png';
 
 function Profile() {
   const { userId, logovanikorisnik } = useParams();
@@ -221,6 +222,16 @@ function Profile() {
     }
   };
 
+  const [expandedDescription, setExpandedDescription] = useState(null);
+
+  const handleDescriptionHover = (description) => {
+    setExpandedDescription(description);
+  };
+
+  const handleDescriptionHoverEnd = () => {
+    setExpandedDescription(null);
+  };
+
 
   return (
     <>
@@ -232,8 +243,8 @@ function Profile() {
                 <MDBRow className="g-0">
                   <MDBCol md="4" className="gradient-custom-dark text-center text-white"
                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
-                    <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
+                    <MDBCardImage src={profileIcon}
+                      alt="Avatar" className="my-5" style={{ width: '80px', color: 'white' }} fluid />
                     {user.customer === false ? (
                       <MDBCardText>{userType.name}</MDBCardText>
                     ) : (
@@ -288,7 +299,8 @@ function Profile() {
                         {user.customer === false ? (
                           <MDBCol size="10" className="mb-3">
                             <MDBTypography tag="h6">Description</MDBTypography>
-                            <MDBCardText className="text-muted">{user.description}</MDBCardText>
+                            <MDBCardText style={{cursor: 'pointer'}} className="text-muted" onMouseEnter={() => handleDescriptionHover(user.description)}
+                  onMouseLeave={handleDescriptionHoverEnd}>{expandedDescription === user.description ? user.description : `${user.description.slice(0, 50)}...`}</MDBCardText>
                           </MDBCol>
                         ) : (
                           <></>

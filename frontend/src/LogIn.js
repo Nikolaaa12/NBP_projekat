@@ -78,10 +78,6 @@ function LogIn(props) {
             <input onChange={handle} id="password" value={data.password} className='input1' type='password' placeholder='Enter password'></input>
           </div>
         </div>
-        <div className='forgot-password'>
-          <div>Forgot password? </div>
-          <a href="#smtng">Click here!</a>
-        </div>
         <button type="submit" className='sign-in'>Sign In</button>
       </form>
       <ToastContainer />

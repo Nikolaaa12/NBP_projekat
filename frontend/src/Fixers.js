@@ -237,7 +237,7 @@ const applyFilters = async () => {
                   <h2>Price</h2>
                   {user.pricePerHour} $
                 </td>
-                <td className='description-cont' style={{ fontWeight: 'bold', cursor: 'pointer' }} onMouseEnter={() => handleDescriptionHover(user.description)}
+                <td className='hover-cont' style={{ fontWeight: 'bold', cursor: 'pointer' }} onMouseEnter={() => handleDescriptionHover(user.description)}
                   onMouseLeave={handleDescriptionHoverEnd}>
                   {expandedDescription === user.description ? user.description : `${user.description.slice(0, 50)}...`}
                 </td>

@@ -60,6 +60,10 @@ body{
     color: #fff;
 }
 
+.sign-in:active{
+    transform: scale(0.9);
+}
+
 .fb, .twitter{
     display: flex;
     cursor: pointer;

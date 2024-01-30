@@ -102,13 +102,13 @@ function MyReservations() {
           <tbody >
             {reservations.map((reservation, index)=>(
               <tr key={index}>
-                <td style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
+                <td className='hover-cont' style={{cursor: 'pointer'}}  onClick={() => handleWrapperClick(reservation.idCustomer)}>
                   {userDetails[index] && userDetails[index].name}
                 </td>
-                <td style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
+                <td className='hover-cont' style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
                   {userDetails[index] && userDetails[index].lastName}
                 </td>
-                <td style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
+                <td className='hover-cont' style={{cursor: 'pointer'}} onClick={() => handleWrapperClick(reservation.idCustomer)}>
                   {userDetails[index] && userDetails[index].email}
                 </td>
                 <td>
