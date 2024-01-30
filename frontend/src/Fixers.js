@@ -43,6 +43,16 @@ function Fixers() {
       });
       return;
     }
+    if (data.date === '') {
+      // Display an error message or redirect to the login page
+      toast.error('You need to select date', {
+        className: 'custom-toast',
+      bodyClassName: 'custom-toast-body',
+      autoClose: 3000,
+      });
+      return;
+    }
+    console.log(data.date);
 
   // Check if the selected date is in the past
   const currentDate = new Date();

@@ -93,7 +93,13 @@ function OurNavbar({ userId }) {
           description: '',
           pricePerHour: 0,
         });
-        navigate(`/`);
+        const currentPath = window.location.pathname;
+
+        if (currentPath === '/') {
+          window.location.reload();
+        } else {
+          navigate('/');
+        }
       })
       .catch(error => {
         console.error('Logout error:', error);
@@ -104,7 +110,7 @@ function OurNavbar({ userId }) {
     <>
       <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="lg" className="bg-body-tertiary" fixed="top">
         <Container>
-          <Navbar.Brand href="/">FixHub</Navbar.Brand>
+          <Navbar.Brand href={`/`}>FixHub</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

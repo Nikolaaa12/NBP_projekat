@@ -1,4 +1,4 @@
-import {ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { MDBCol, MDBBtn, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import './Profile.css';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import { IonIcon } from '@ionic/react';
 import { thumbsDown, thumbsUp } from 'ionicons/icons';
 
 function Profile() {
-  const { userId,logovanikorisnik } = useParams();
+  const { userId, logovanikorisnik } = useParams();
   const [user, setUser] = useState({
     email: '',
     username: '',
@@ -91,15 +91,15 @@ function Profile() {
         credentials: 'include',
         mode: 'cors',
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       // You can handle the response here if needed
       const data = await response.json();
       console.log(data);
-  
+
       toast.success('Liked successfully!', {
         className: 'custom-toast',
         bodyClassName: 'custom-toast-body',
@@ -125,15 +125,15 @@ function Profile() {
         credentials: 'include',
         mode: 'cors',
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       // You can handle the response here if needed
       const data = await response.json();
       console.log(data);
-  
+
       toast.success('Disliked!', {
         className: 'custom-toast',
         bodyClassName: 'custom-toast-body',
@@ -148,28 +148,36 @@ function Profile() {
       });
     }
   };
-  
-  const incrementLikes = () => {
 
-    if (logovanikorisnik!=userId) {
-      if(!liked){
-      setLiked(true);
-      callliked();
-      setUser(prevState => ({
-        ...prevState,
-        upVotes: prevState.upVotes + 1,
-      }));
+  const incrementLikes = () => {
+    if (logovanikorisnik !== '-1') {
+      if (logovanikorisnik != userId) {
+        if (!liked) {
+          setLiked(true);
+          callliked();
+          setUser(prevState => ({
+            ...prevState,
+            upVotes: prevState.upVotes + 1,
+          }));
+        }
+        else {
+          toast.error('You already liked this person', {
+            className: 'custom-toast',
+            bodyClassName: 'custom-toast-body',
+            autoClose: 3000,
+          });
+        }
+      }
+      else {
+        toast.error('You cannot like yourself', {
+          className: 'custom-toast',
+          bodyClassName: 'custom-toast-body',
+          autoClose: 3000,
+        });
+      }
     }
-    else{
-      toast.error('You already liked this person', {
-        className: 'custom-toast',
-        bodyClassName: 'custom-toast-body',
-        autoClose: 3000,
-      });
-    }
-  }
-    else{
-      toast.error('You cannot like yourself', {
+    else {
+      toast.error('You need to be logged in to like', {
         className: 'custom-toast',
         bodyClassName: 'custom-toast-body',
         autoClose: 3000,
@@ -178,25 +186,34 @@ function Profile() {
   };
 
   const incrementDislikes = () => {
-    if (logovanikorisnik!=userId) {
-      if(!disliked){
-        setDisliked(true);
-        calldisliked();
-        setUser(prevState => ({
-          ...prevState,
-          downVotes: prevState.downVotes + 1,
-        }));
+    if (logovanikorisnik !== '-1') {
+      if (logovanikorisnik !== userId) {
+        if (!disliked) {
+          setDisliked(true);
+          calldisliked();
+          setUser(prevState => ({
+            ...prevState,
+            downVotes: prevState.downVotes + 1,
+          }));
+        }
+        else {
+          toast.error('You already disliked this person', {
+            className: 'custom-toast',
+            bodyClassName: 'custom-toast-body',
+            autoClose: 3000,
+          });
+        }
       }
-      else{
-        toast.error('You already disliked this person', {
+      else {
+        toast.error('You cannot dislike yourself', {
           className: 'custom-toast',
           bodyClassName: 'custom-toast-body',
           autoClose: 3000,
         });
-      } 
+      }
     }
-    else{
-      toast.error('You cannot dislike yourself', {
+    else {
+      toast.error('You need to be logged in to dislike', {
         className: 'custom-toast',
         bodyClassName: 'custom-toast-body',
         autoClose: 3000,

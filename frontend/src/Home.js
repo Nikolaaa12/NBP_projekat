@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Route } from 'react-router-dom';
+import { useNavigate,useParams, Route } from 'react-router-dom';
 import OurNavbar from './Navbar';
 import './App.css';
 import { IonIcon, IonSelect, IonLabel, IonSelectOption } from '@ionic/react'; // Import IonIcon from the '@ionic/react' package
@@ -12,9 +12,16 @@ import { Typewriter, Cursor } from 'react-simple-typewriter'
 
 function Home() {
   const navigate = useNavigate();
+  const [logovanikorisnikid , setlogovanikorisnikid] = useState(-1)
   const [userTypes, setUserTypes] = useState([]);
   const [bestUsers, setBestUsers] = useState([]);
 
+  const handleWrapperClick = (userId) => {
+    // Handle the click event, e.g., navigate to the profile page
+    // You can use the useHistory hook or any navigation method you prefer
+    console.log(`Clicked on user with ID: ${userId}`);
+    navigate(`/profile/${userId}/${logovanikorisnikid}`);
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,6 +82,23 @@ function Home() {
       } catch (error) {
         console.error('Error fetching best users:', error);
       }
+      try {
+        const response = await fetch('http://localhost:5105/api/User/GetUser', {
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          mode: 'cors',
+        });
+
+        if (response.status !== 200) {
+         // <Navigate to="/login" />;
+          return;
+        }
+
+        const content = await response.json();
+        setlogovanikorisnikid(content.id);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
 
     fetchBestUsers();
@@ -96,7 +120,7 @@ function Home() {
       <h2 className='recommended-title'>Recommended fixers</h2>
       <div className="bestFixers">
         {bestUsers.map(user => (
-          <div className='oneBestFixer'>
+          <div className='oneBestFixer' onClick={() => handleWrapperClick(user.id)}>
             <div className='nameLastName'>
               <h3>{user.name}</h3>
               <h3>{user.lastName}</h3>
