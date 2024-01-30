@@ -86,24 +86,24 @@ function MyReservations() {
       <table className='table'>
           <thead className='table-head'>
             <tr>
-              <th>Reservation ID</th>
-              <th>Customer ID</th>
-              <th>Handyman ID</th>
+              <th>Customer name</th>
+              <th>Customer lastname</th>
+              <th>Customer email</th>
               <th>Reservation date</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {reservations.map((reservation)=>(
-              <tr key={reservation.id}>
+            {reservations.map((reservation, index)=>(
+              <tr key={index}>
                 <td>
-                  {reservation.id}
+                  {userDetails[index] && userDetails[index].name}
                 </td>
                 <td>
-                  {reservation.idCustomer}
+                  {userDetails[index] && userDetails[index].lastName}
                 </td>
                 <td>
-                  {reservation.idHandyMan}
+                  {userDetails[index] && userDetails[index].email}
                 </td>
                 <td>
                   {reservation.date}
